@@ -27,7 +27,7 @@ if st.button("Hide Statistics"):
     button1=False
 
 
-selected_group = st.radio('Choose a feature group to keep:', ['Worst Features', 'Mean Features', 'Standard Error Features'])
+selected_group = st.radio('Choose a feature group to keep:', ['Worst Features', 'Mean Features', 'Standard Error Features', 'Keep all'])
 
 if selected_group == 'Worst Features':
     df = df[['diagnosis'] + ['id'] + list(df.filter(like='worst'))]
