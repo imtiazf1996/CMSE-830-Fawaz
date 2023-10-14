@@ -92,9 +92,17 @@ if st.button("Generate Plot"):
 
     elif plot_selection == "Pair Plot":
         st.subheader("Pair Plot")
-        fig = px.scatter_matrix(selected_data, dimensions=selected_box, color=zv)
+        selected_data['diagnosis'] = zv
+        fig = make_subplots(rows=len(selected_box), cols=len(selected_box), start_cell="top-left")
+        for i, var1 in enumerate(selected_box):
+            for j, var2 in enumerate(selected_box):
+                if i == j:
+                    fig.add_trace(go.Scatter(x=selected_data[var1], y=selected_data[var1], mode="markers", marker=dict(color=selected_data['diagnosis'])), row=i+1, col=j+1)
+                else:
+                    fig.add_trace(go.Scatter(x=selected_data[var2], y=selected_data[var1], mode="markers", marker=dict(color=selected_data['diagnosis'])), row=i+1, col=j+1)
+
+        fig.update_layout(height=800, width=800)
         st.plotly_chart(fig)
-        
     elif plot_selection == "Violin Plot":
         st.subheader("Violin Plot")
         fig = px.violin(df, x=xv, y=yv, color=zv, title="Violin Plot")
