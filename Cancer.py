@@ -65,7 +65,7 @@ if plot_selection in ["Pair Plot", "HiPlot"]:
     selected_box= st.multiselect('Select variables:', cols)
     selected_data = df[selected_box + ['diagnosis']]
 
-if plot_selection in [ "Scatter Plot", "HiPlot", "Violin Plot"]:
+if plot_selection in [ "Scatter Plot", "Violin Plot"]:
     yv=st.selectbox('Please select y :',cols)
 
 
