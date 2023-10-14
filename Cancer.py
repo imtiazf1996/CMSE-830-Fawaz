@@ -94,7 +94,7 @@ if st.button("Generate Plot"):
 
     elif plot_selection == "Pair Plot":
         sns.set(style="ticks")
-        pair_plot = sns.pairplot(data=selected_data, hue="diagnosis", markers=["o", "s"])
+        pair_plot = sns.pairplot(data=selected_data, markers=["o", "s"])
         st.pyplot(pair_plot)
         
     elif plot_selection == "Violin Plot":
