@@ -67,10 +67,8 @@ if plot_selection in [ "Scatter Plot", "HiPlot", "Violin Plot"]:
     yv=st.selectbox('Please select y or second variiable:',cols)
 
 
-if plot_selection in [ "Scatter Plot", "Pair Plot", "Violin Plot"]:
-    zv=st.selectbox('Please select hue or third variiable:',red_cols)
-else:
-    zv = None
+st.write("The hue in required plots will be based on Malignant (M) or Benign (B)")
+zv=df['diagnosis']
 
 if st.button("Generate Plot"):
     if plot_selection == "Histogram":
@@ -94,7 +92,7 @@ if st.button("Generate Plot"):
 
     elif plot_selection == "Pair Plot":
         sns.set(style="ticks")
-        pair_plot = sns.pairplot(data=selected_data, markers=["o", "s"])
+        pair_plot = sns.pairplot(data=selected_data, hue = zv, markers=["o", "s"])
         st.pyplot(pair_plot)
         
     elif plot_selection == "Violin Plot":
