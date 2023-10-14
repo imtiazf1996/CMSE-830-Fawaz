@@ -57,7 +57,9 @@ plot_selection = st.selectbox("Select a plot type:", ["Histogram", "Scatter Plot
 
 st.write("Please select following variables for different plotting")
 xv=st.selectbox('Please select x or first variable:',cols)
-yv=st.selectbox('Please select y or second variiable:',cols)
+
+if plot_selection in [ "Scatter Plot", "HiPlot", "Pair Plot", "Violin Plot"]:
+    yv=st.selectbox('Please select y or second variiable:',cols)
 
 
 if plot_selection in [ "Scatter Plot", "Pair Plot", "Violin Plot"]:
