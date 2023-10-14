@@ -68,7 +68,7 @@ if plot_selection in [ "Scatter Plot", "HiPlot", "Violin Plot"]:
 
 
 st.write("The hue in required plots will be based on Malignant (M) or Benign (B)")
-zv=df['diagnosis']
+zv='diagnosis'
 
 if st.button("Generate Plot"):
     if plot_selection == "Histogram":
