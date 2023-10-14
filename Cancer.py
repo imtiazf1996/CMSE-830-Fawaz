@@ -70,7 +70,6 @@ if st.button("Generate Plot"):
         st.subheader("Histogram")
         fig, ax = plt.subplots()
         sns.histplot(data=df, x=xv, hue=zv, kde=True)
-        fig.update_layout(plot_bgcolor="white") 
         st.pyplot(fig)
     
     elif plot_selection == "Scatter Plot":
@@ -79,23 +78,19 @@ if st.button("Generate Plot"):
         fig.update_traces(marker=dict(size=6), selector=dict(mode='markers+text'))
         fig.update_layout(hovermode='closest')
         fig.update_traces(text=df[zv], textposition='top center')
-        fig.update_layout(plot_bgcolor="white") 
         st.plotly_chart(fig)
 
     elif plot_selection == "HiPlot":
         st.subheader("HiPlot")
         hiplot_exp = hip.Experiment.from_dataframe(df)
-        fig.update_layout(plot_bgcolor="white") 
         st.write(hiplot_exp)
 
     elif plot_selection == "Pair Plot":
         st.subheader("Pair Plot")
         fig = px.scatter_matrix(df, color=zv, title="Pair Plot")
-        fig.update_layout(plot_bgcolor="white")  
         st.plotly_chart(fig)
         
     elif plot_selection == "Violin Plot":
         st.subheader("Violin Plot")
         fig = px.violin(df, x=xv, y=yv, color=zv, title="Violin Plot")
-        fig.update_layout(plot_bgcolor="white")
         st.plotly_chart(fig)
