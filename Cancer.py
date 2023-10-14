@@ -61,7 +61,7 @@ if plot_selection in ["Histogram", "Scatter Plot", "Hiplot"]:
 
 if plot_selection in ["Violin Plot"]:
     xv=df["diagnosis"]
-if plot_selection in ["Pair Plot"]:
+if plot_selection in ["Pair Plot". "HiPlot"]:
     selected_box= st.multiselect('Select variables:', cols)
     selected_data = df[selected_box + ['diagnosis']]
 
@@ -89,7 +89,7 @@ if st.button("Generate Plot"):
 
     elif plot_selection == "HiPlot":
         st.subheader("HiPlot")
-        hiplot_exp = hip.Experiment.from_dataframe(df)
+        hiplot_exp = hip.Experiment.from_dataframe(selected_data)
         st.write(hiplot_exp)
 
     elif plot_selection == "Pair Plot":
