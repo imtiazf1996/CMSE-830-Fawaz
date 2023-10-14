@@ -92,8 +92,8 @@ if st.button("Generate Plot"):
 
     elif plot_selection == "Pair Plot":
         st.subheader("Pair Plot")
-        selected_data['diagnosis_color'] = selected_data['diagnosis'].apply(lambda x: 'Malignant' if x == 'M' else 'Benign')
-        fig = px.scatter_matrix(selected_data, dimensions=selected_box, color='diagnosis_color', title="Pair Plot")
+        fig = px.scatter_matrix(selected_data, color=zv, title="Pair Plot")
+        fig.update_layout(plot_bgcolor="white")  
         st.plotly_chart(fig)
        
     elif plot_selection == "Violin Plot":
