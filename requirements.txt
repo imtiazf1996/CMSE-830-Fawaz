@@ -1,2 +1,6 @@
 pandas
 streamlit
+matplotlib
+hiplot
+seaborn
+plotly
