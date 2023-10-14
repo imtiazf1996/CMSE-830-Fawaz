@@ -53,14 +53,14 @@ if button2:
 if st.button("Hide Columns"):
     button2=False
 
-plot_selection = st.selectbox("Select a plot type:", ["Histogram", "Scatter Plot", "Box Plot", "HiPlot", "Pair Plot", "Violin Plot"])
+plot_selection = st.selectbox("Select a plot type:", ["Histogram", "Scatter Plot", "HiPlot", "Pair Plot", "Violin Plot"])
 
 st.write("Please select following variables for different plotting")
 xv=st.selectbox('Please select x or first variable:',cols)
 yv=st.selectbox('Please select y or second variiable:',cols)
 
 
-if plot_selection in ["Histogram", "Scatter Plot", "Box Plot", "HiPlot", "Pair Plot", "Violin Plot"]:
+if plot_selection in [ "Scatter Plot", "Pair Plot", "Violin Plot"]:
     zv=st.selectbox('Please select hue or third variiable:',red_cols)
 else:
     zv = None
@@ -81,14 +81,6 @@ if st.button("Generate Plot"):
         fig.update_traces(text=df[zv], textposition='top center')
         fig.update_layout(plot_bgcolor="white") 
         st.plotly_chart(fig)
-
-    
-    elif plot_selection == "Box Plot":
-        st.subheader("Box Plot")
-        fig, ax = plt.subplots()
-        sns.boxplot(data=df, x=xv, y=yv, hue=zv)
-        fig.update_layout(plot_bgcolor="white") 
-        st.pyplot(fig)
 
     elif plot_selection == "HiPlot":
         st.subheader("HiPlot")
