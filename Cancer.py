@@ -95,7 +95,7 @@ if st.button("Generate Plot"):
         all_columns = selected_data.columns
         exclude_column = 'diagnosis' 
         dims = [col for col in all_columns if col != exclude_column]
-        fig = px.scatter_matrix(selected_data, dimension = dims, title="Pair Plot", color= 'diagnosis')
+        fig = px.scatter_matrix(selected_data, dimensions = dims, title="Pair Plot", color= 'diagnosis')
         fig.update_layout(plot_bgcolor="white")  
         st.plotly_chart(fig)
        
