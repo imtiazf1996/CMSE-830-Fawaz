@@ -92,7 +92,7 @@ if st.button("Generate Plot"):
 
     elif plot_selection == "Pair Plot":
         st.subheader("Pair Plot")
-        fig = px.scatter_matrix(selected_data, title="Pair Plot")
+        fig = px.scatter_matrix(selected_data, title="Pair Plot", color= 'diagnosis')
         fig.update_layout(plot_bgcolor="white")  
         st.plotly_chart(fig)
        
