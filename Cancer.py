@@ -56,10 +56,10 @@ if st.button("Hide Columns"):
 plot_selection = st.selectbox("Select a plot type:", ["Histogram", "Scatter Plot", "HiPlot", "Pair Plot", "Violin Plot"])
 
 st.write("Please select following variables for different plotting")
-if plot_selection in ["Histogram", "Scatter Plot", "Violin Plot", "Hiplot"]
+if plot_selection in ["Histogram", "Scatter Plot", "Violin Plot", "Hiplot"]:
     xv=st.selectbox('Please select x or first variable:',cols)
 
-if plot_selection in ["Pair Plot"]
+if plot_selection in ["Pair Plot"]:
     selected_box= st.multiselect('Select variables:', cols)
 
 if plot_selection in [ "Scatter Plot", "HiPlot", "Violin Plot"]:
