@@ -7,6 +7,7 @@ import plotly.express as px
 
 df1=pd.read_csv('data.csv')
 st.write("Fawaz Imtiaz")
+st.markdown('First Project of CMSE-830')
 st.markdown('Welcome to my app')
 st.write("Breast Cancer Wisconsin Dataset")
 show_table = st.checkbox("Show Dataset Table")
@@ -29,7 +30,11 @@ if button1:
     st.write(df.describe())
 if st.button("Hide Statistics"):
     button1=False
-
+button2=st.radio('Do you want to see the correlation?', ['No', 'Yes'])
+if button2=='Yes':
+    df.corr();
+elif button=='No':
+    pass
 
 selected_group = st.radio('Choose a feature group to keep:', ['Worst Features', 'Mean Features', 'Standard Error Features', 'Keep All'])
 
