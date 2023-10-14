@@ -31,10 +31,12 @@ if button1:
 if st.button("Hide Statistics"):
     button1=False
 button3=st.radio('Do you want to see the correlation?', ['No', 'Yes'])
-if button3=='Yes':
-    df.corr();
-elif button3=='No':
+if button3 == 'Yes':
+    correlation_matrix = df.corr()
+    st.write(correlation_matrix)
+elif button3 == 'No':
     pass
+
 
 selected_group = st.radio('Choose a feature group to keep:', ['Worst Features', 'Mean Features', 'Standard Error Features', 'Keep All'])
 
