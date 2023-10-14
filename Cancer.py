@@ -87,11 +87,14 @@ if st.button("Generate Plot"):
         fig.update_traces(text=df[zv], textposition='top center')
         st.plotly_chart(fig)
 
-    elif plot_selection == "HiPlot":
+     elif plot_selection == "HiPlot":
         st.subheader("HiPlot")
         hiplot_data = selected_data.drop(columns=['diagnosis'])
-        hiplot_exp = hip.Experiment.from_dataframe(hiplot_data)
-        st.write(hiplot_exp)
+        try:
+            hiplot_exp = hip.Experiment.from_dataframe(hiplot_data)
+            st.write(hiplot_exp)
+        except Exception as e:
+            st.error(f"An error occurred: {e}")
 
     elif plot_selection == "Pair Plot":
         st.subheader("Pair Plot")
