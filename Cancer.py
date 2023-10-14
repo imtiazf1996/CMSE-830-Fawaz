@@ -91,9 +91,9 @@ if st.button("Generate Plot"):
         st.write(hiplot_exp)
 
     elif plot_selection == "Pair Plot":
-        sns.set(style="ticks")
-        pair_plot = sns.pairplot(data=selected_data, hue = zv, markers=["o", "s"])
-        st.pyplot(pair_plot)
+        st.subheader("Pair Plot")
+        fig = px.scatter_matrix(selected_data, dimensions=selected_box, color=zv)
+        st.plotly_chart(fig)
         
     elif plot_selection == "Violin Plot":
         st.subheader("Violin Plot")
