@@ -61,6 +61,7 @@ if plot_selection in ["Histogram", "Scatter Plot", "Violin Plot", "Hiplot"]:
 
 if plot_selection in ["Pair Plot"]:
     selected_box= st.multiselect('Select variables:', cols)
+    selected_data = df[selected_box]
 
 if plot_selection in [ "Scatter Plot", "HiPlot", "Violin Plot"]:
     yv=st.selectbox('Please select y or second variiable:',cols)
@@ -92,9 +93,9 @@ if st.button("Generate Plot"):
         st.write(hiplot_exp)
 
     elif plot_selection == "Pair Plot":
-        st.subheader("Pair Plot")
-        fig = px.scatter_matrix(selected_box, color=zv, title="Pair Plot")
-        st.plotly_chart(fig)
+        sns.set(style="ticks")
+        pair_plot = sns.pairplot(data=selected_data, hue=zv, markers=["o", "s"])
+        st.pyplot(pair_plot)
         
     elif plot_selection == "Violin Plot":
         st.subheader("Violin Plot")
