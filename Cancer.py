@@ -56,9 +56,13 @@ if st.button("Hide Columns"):
 plot_selection = st.selectbox("Select a plot type:", ["Histogram", "Scatter Plot", "HiPlot", "Pair Plot", "Violin Plot"])
 
 st.write("Please select following variables for different plotting")
-xv=st.selectbox('Please select x or first variable:',cols)
+if plot_selection in ["Histogram", "Scatter Plot", "Violin Plot", "Hiplot"]
+    xv=st.selectbox('Please select x or first variable:',cols)
 
-if plot_selection in [ "Scatter Plot", "HiPlot", "Pair Plot", "Violin Plot"]:
+if plot_selection in ["Pair Plot"]
+    selected_box= st.multiselect('Select variables:', cols)
+
+if plot_selection in [ "Scatter Plot", "HiPlot", "Violin Plot"]:
     yv=st.selectbox('Please select y or second variiable:',cols)
 
 
@@ -89,7 +93,7 @@ if st.button("Generate Plot"):
 
     elif plot_selection == "Pair Plot":
         st.subheader("Pair Plot")
-        fig = px.scatter_matrix(df, color=zv, title="Pair Plot")
+        fig = px.scatter_matrix(selected_box, color=zv, title="Pair Plot")
         st.plotly_chart(fig)
         
     elif plot_selection == "Violin Plot":
