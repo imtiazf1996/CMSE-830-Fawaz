@@ -1,5 +1,9 @@
 import pandas as pd
 import streamlit as st
+import matplotlib.pyplot as plt
+import hiplot as hip
+import seaborn as sns
+import plotly.express as px
 
 df1=pd.read_csv('data.csv')
 st.write("Fawaz Imtiaz")
@@ -27,7 +31,7 @@ if st.button("Hide Statistics"):
     button1=False
 
 
-selected_group = st.radio('Choose a feature group to keep:', ['Worst Features', 'Mean Features', 'Standard Error Features', 'Keep all'])
+selected_group = st.radio('Choose a feature group to keep:', ['Worst Features', 'Mean Features', 'Standard Error Features', 'Keep All'])
 
 if selected_group == 'Worst Features':
     df = df[['diagnosis'] + ['id'] + list(df.filter(like='worst'))]
@@ -49,14 +53,57 @@ if button2:
 if st.button("Hide Columns"):
     button2=False
 
+plot_selection = st.selectbox("Select a plot type:", ["Histogram", "Scatter Plot", "Box Plot", "HiPlot", "Pair Plot", "Violin Plot"])
+
 st.write("Please select following variables for different plotting")
 xv=st.selectbox('Please select x or first variable:',cols)
 yv=st.selectbox('Please select y or second variiable:',cols)
-zv=st.selectbox('Please select hue or third variiable:',red_cols)
 
-button3=st.button("Bar Chart");
-if button3:
-    st.bar_chart(data=df, x=xv, y=yv)
 
-if st.button("Hide Bar Chart"):
-    button3=False
+if plot_selection in ["Histogram", "Scatter Plot", "Box Plot", "HiPlot", "Pair Plot", "Violin Plot"]:
+    zv=st.selectbox('Please select hue or third variiable:',red_cols)
+else:
+    zv = None
+
+if st.button("Generate Plot"):
+    if plot_selection == "Histogram":
+        st.subheader("Histogram")
+        fig, ax = plt.subplots()
+        sns.histplot(data=df, x=xv, hue=zv, kde=True)
+        fig.update_layout(plot_bgcolor="white") 
+        st.pyplot(fig)
+    
+    elif plot_selection == "Scatter Plot":
+        st.subheader("Scatter Plot")
+        fig = px.scatter(df, x=xv, y=yv, color=zv, title="Scatter Plot")
+        fig.update_traces(marker=dict(size=6), selector=dict(mode='markers+text'))
+        fig.update_layout(hovermode='closest')
+        fig.update_traces(text=df[zv], textposition='top center')
+        fig.update_layout(plot_bgcolor="white") 
+        st.plotly_chart(fig)
+
+    
+    elif plot_selection == "Box Plot":
+        st.subheader("Box Plot")
+        fig, ax = plt.subplots()
+        sns.boxplot(data=df, x=xv, y=yv, hue=zv)
+        fig.update_layout(plot_bgcolor="white") 
+        st.pyplot(fig)
+
+    elif plot_selection == "HiPlot":
+        st.subheader("HiPlot")
+        hiplot_exp = hip.Experiment.from_dataframe(df)
+        fig.update_layout(plot_bgcolor="white") 
+        st.write(hiplot_exp)
+
+    elif plot_selection == "Pair Plot":
+        st.subheader("Pair Plot")
+        fig = px.scatter_matrix(df, color=zv, title="Pair Plot")
+        fig.update_layout(plot_bgcolor="white")  
+        st.plotly_chart(fig)
+        
+    elif plot_selection == "Violin Plot":
+        st.subheader("Violin Plot")
+        fig = px.violin(df, x=xv, y=yv, color=zv, title="Violin Plot")
+        fig.update_layout(plot_bgcolor="white")
+        st.plotly_chart(fig)
