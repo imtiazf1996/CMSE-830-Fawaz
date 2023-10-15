@@ -90,11 +90,7 @@ if st.button("Generate Plot"):
     elif plot_selection == "HiPlot":
         st.subheader("HiPlot")
         hiplot_data = selected_data.drop(columns=['diagnosis'])
-        try:
-            hiplot_exp = hip.Experiment.from_dataframe(hiplot_data)
-            st.write(hiplot_exp)
-        except Exception as e:
-            st.error(f"An error occurred: {e}")
+        hiplot_exp = hip.Experiment.from_dataframe(hiplot_data)
 
     elif plot_selection == "Pair Plot":
         st.subheader("Pair Plot")
