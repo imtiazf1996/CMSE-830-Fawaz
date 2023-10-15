@@ -91,6 +91,7 @@ if st.button("Generate Plot"):
         st.subheader("HiPlot")
         hiplot_data = selected_data.drop(columns=['diagnosis'])
         hiplot_exp = hip.Experiment.from_dataframe(hiplot_data)
+        st.write(hiplot_exp)
 
     elif plot_selection == "Pair Plot":
         st.subheader("Pair Plot")
