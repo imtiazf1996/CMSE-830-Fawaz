@@ -106,7 +106,7 @@ if st.button("Generate Plot"):
 
     elif plot_selection == "Correlation Heatmap":
         st.subheader("Correlation Heatmap")
-        st.button("Generate Correlation Heatmap"):
+        st.button("Generate Correlation Heatmap")
         corr_matrix = df.corr()
         fig, ax = plt.subplots(figsize=(12, 10))
         sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap='coolwarm', ax=ax)
