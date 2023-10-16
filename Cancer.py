@@ -63,6 +63,10 @@ if plot_selection in ["Pair Plot", "Correlation Heatmap"]:
     selected_box= st.multiselect('Select variables:', cols)
     selected_data = df[selected_box + ['diagnosis']]
 
+if plot_selection in ["Correlation Heatmap"]:
+    selected_box= st.multiselect('Select variables:', cols)
+    selected_data = df[selected_box]
+
 if plot_selection in ["Violin Plot"]:
     xv=df["diagnosis"]
 
@@ -106,7 +110,7 @@ if st.button("Generate Plot"):
 
     elif plot_selection == "Correlation Heatmap":
         st.subheader("Correlation Heatmap")
-        corr_matrix = selected_box.corr()
+        corr_matrix = selected_data.corr()
         fig, ax = plt.subplots(figsize=(12, 10))
         sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap='coolwarm', ax=ax)
         plt.title('Correlation Heatmap')
