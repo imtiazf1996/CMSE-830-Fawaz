@@ -17,7 +17,7 @@ description=st.checkbox("General information about this project")
 
 if description:
     st.write('In Wisconsin, a dataset was created that gives important information about breast cancer. It comes from the University of Wisconsin Hospitals in Madison. This data helps us understand breast cancer better and is useful for research. Here we will see how the Benign and Malignant type cancer cells are different and how  we can identify them from different properties')
-    st.write("In this app, you can: 1. View and Modify Data: Display the dataset, handle missing values, and select specific feature groups. 2. Interactive Visualizations: From histograms to scatter plots and heatmaps, delve deep into the data's patterns.3. Customize Plots: Choose variables and generate insightful visualizations.")
+    st.write("In this app, you can: \n1. View and Modify Data: Display the dataset, handle missing values, and select specific feature groups. \n2. Interactive Visualizations: From histograms to scatter plots and heatmaps, delve deep into the data's patterns.\n3. Customize Plots: Choose variables and generate insightful visualizations.")
 st.markdown("***")
             
 show_table = st.checkbox("Show Dataset Table")
