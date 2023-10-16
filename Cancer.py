@@ -59,11 +59,12 @@ st.write("Please select following variables for different plotting")
 if plot_selection in ["Histogram", "Scatter Plot", "3D Scatter Plot"]:
     xv=st.selectbox('Please select x :',cols)
 
-if plot_selection in ["Violin Plot"]:
-    xv=df["diagnosis"]
-if plot_selection in ["Pair Plot"]:
+if plot_selection in ["Pair Plot", "Correlation Heatmap"]:
     selected_box= st.multiselect('Select variables:', cols)
     selected_data = df[selected_box + ['diagnosis']]
+
+if plot_selection in ["Violin Plot"]:
+    xv=df["diagnosis"]
 
 if plot_selection in [ "Scatter Plot", "Violin Plot", "3D Scatter Plot"]:
     yv=st.selectbox('Please select y :',cols)
@@ -105,7 +106,7 @@ if st.button("Generate Plot"):
 
     elif plot_selection == "Correlation Heatmap":
         st.subheader("Correlation Heatmap")
-        corr_matrix = df.corr()
+        corr_matrix = selected_data.corr()
         fig, ax = plt.subplots(figsize=(12, 10))
         sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap='coolwarm', ax=ax)
         plt.title('Correlation Heatmap')
