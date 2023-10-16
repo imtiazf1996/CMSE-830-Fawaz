@@ -53,7 +53,7 @@ if button2:
 if st.button("Hide Columns"):
     button2=False
 
-plot_selection = st.selectbox("Select a plot type:", ["Histogram", "Scatter Plot", "HiPlot", "Pair Plot", "Violin Plot"])
+plot_selection = st.selectbox("Select a plot type:", ["Histogram", "Scatter Plot", "Pair Plot", "Violin Plot", "3D Scatter Plot", "Correlation Heatmap"])
 
 st.write("Please select following variables for different plotting")
 if plot_selection in ["Histogram", "Scatter Plot"]:
@@ -61,7 +61,7 @@ if plot_selection in ["Histogram", "Scatter Plot"]:
 
 if plot_selection in ["Violin Plot"]:
     xv=df["diagnosis"]
-if plot_selection in ["Pair Plot", "HiPlot"]:
+if plot_selection in ["Pair Plot"]:
     selected_box= st.multiselect('Select variables:', cols)
     selected_data = df[selected_box + ['diagnosis']]
 
@@ -87,14 +87,6 @@ if st.button("Generate Plot"):
         fig.update_traces(text=df[zv], textposition='top center')
         st.plotly_chart(fig)
 
-    elif plot_selection == "HiPlot":
-        st.subheader("HiPlot")
-        datapoints = []
-        for _, row in selected_data.iterrows():
-            datapoints.append(hip.Datapoint(row.to_dict()))
-            hiplot_exp = hip.Experiment(datapoints=datapoints)
-            st.write(hiplot_exp.to_html(), unsafe_allow_html=True)
-
     elif plot_selection == "Pair Plot":
         st.subheader("Pair Plot")
         all_columns = selected_data.columns
@@ -103,6 +95,24 @@ if st.button("Generate Plot"):
         fig = px.scatter_matrix(selected_data, dimensions = dims, title="Pair Plot", color= 'diagnosis')
         fig.update_layout(plot_bgcolor="white")  
         st.plotly_chart(fig)
+
+    elif plot_selection == "3D Scatter Plot":
+        st.subheader("3D Scatter Plot")
+        x1 = st.selectbox('Select variable for X-axis:', cols)
+        y1 = st.selectbox('Select variable for Y-axis:', cols)
+        z1 = st.selectbox('Select variable for Z-axis:', cols)
+        fig = px.scatter_3d(df, x=x1, y=y1, z=z1, color='diagnosis')
+        st.plotly_chart(fig)
+
+    elif plot_selection == "Correlation Heatmap":
+        st.subheader("Correlation Heatmap")
+        st.button("Generate Correlation Heatmap"):
+        corr_matrix = df.corr()
+        fig, ax = plt.subplots(figsize=(12, 10))
+        sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap='coolwarm', ax=ax)
+        plt.title('Correlation Heatmap')
+        st.pyplot(fig)
+
        
     elif plot_selection == "Violin Plot":
         st.subheader("Violin Plot")
