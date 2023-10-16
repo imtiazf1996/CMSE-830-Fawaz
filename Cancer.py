@@ -93,7 +93,7 @@ if st.button("Generate Plot"):
         for _, row in selected_data.iterrows():
             datapoints.append(hip.Datapoint(row.to_dict()))
             hiplot_exp = hip.Experiment(datapoints=datapoints)
-            hip_exp = hiplot_exp.to_streamlit()
+            #hip_exp = hiplot_exp.to_streamlit()
 
     elif plot_selection == "Pair Plot":
         st.subheader("Pair Plot")
