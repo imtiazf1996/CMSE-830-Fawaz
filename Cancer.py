@@ -59,7 +59,7 @@ st.write("Please select following variables for different plotting")
 if plot_selection in ["Histogram", "Scatter Plot", "3D Scatter Plot"]:
     xv=st.selectbox('Please select x :',cols)
 
-if plot_selection in ["Pair Plot", "Correlation Heatmap"]:
+if plot_selection in ["Pair Plot"]:
     selected_box= st.multiselect('Select variables:', cols)
     selected_data = df[selected_box + ['diagnosis']]
 
