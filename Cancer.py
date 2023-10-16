@@ -56,7 +56,7 @@ if st.button("Hide Columns"):
 plot_selection = st.selectbox("Select a plot type:", ["Histogram", "Scatter Plot", "Pair Plot", "Violin Plot", "3D Scatter Plot", "Correlation Heatmap"])
 
 st.write("Please select following variables for different plotting")
-if plot_selection in ["Histogram", "Scatter Plot"]:
+if plot_selection in ["Histogram", "Scatter Plot", "3D Scatter Plot"]:
     xv=st.selectbox('Please select x :',cols)
 
 if plot_selection in ["Violin Plot"]:
@@ -65,9 +65,11 @@ if plot_selection in ["Pair Plot"]:
     selected_box= st.multiselect('Select variables:', cols)
     selected_data = df[selected_box + ['diagnosis']]
 
-if plot_selection in [ "Scatter Plot", "Violin Plot"]:
+if plot_selection in [ "Scatter Plot", "Violin Plot", "3D Scatter Plot"]:
     yv=st.selectbox('Please select y :',cols)
 
+if plot_selection in ["3D Scatter Plot"]:
+    zv=st.selectbox('Please select z:',cols)
 
 st.write("The hue in required plots will be based on Malignant (M) or Benign (B)")
 zv='diagnosis'
@@ -98,15 +100,11 @@ if st.button("Generate Plot"):
 
     elif plot_selection == "3D Scatter Plot":
         st.subheader("3D Scatter Plot")
-        x1 = st.selectbox('Select variable for X-axis:', cols)
-        y1 = st.selectbox('Select variable for Y-axis:', cols)
-        z1 = st.selectbox('Select variable for Z-axis:', cols)
-        fig = px.scatter_3d(df, x=x1, y=y1, z=z1, color='diagnosis')
+        fig = px.scatter_3d(df, x=xv, y=yv, z=zv, color='diagnosis')
         st.plotly_chart(fig)
 
     elif plot_selection == "Correlation Heatmap":
         st.subheader("Correlation Heatmap")
-        st.button("Generate Correlation Heatmap")
         corr_matrix = df.corr()
         fig, ax = plt.subplots(figsize=(12, 10))
         sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap='coolwarm', ax=ax)
