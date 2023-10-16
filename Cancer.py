@@ -69,7 +69,7 @@ if plot_selection in [ "Scatter Plot", "Violin Plot", "3D Scatter Plot"]:
     yv=st.selectbox('Please select y :',cols)
 
 if plot_selection in ["3D Scatter Plot"]:
-    zv=st.selectbox('Please select z:',cols)
+    z3=st.selectbox('Please select z:',cols)
 
 st.write("The hue in required plots will be based on Malignant (M) or Benign (B)")
 zv='diagnosis'
@@ -100,7 +100,7 @@ if st.button("Generate Plot"):
 
     elif plot_selection == "3D Scatter Plot":
         st.subheader("3D Scatter Plot")
-        fig = px.scatter_3d(df, x=xv, y=yv, z=zv, color='diagnosis')
+        fig = px.scatter_3d(df, x=xv, y=yv, z=z3, color='diagnosis')
         st.plotly_chart(fig)
 
     elif plot_selection == "Correlation Heatmap":
