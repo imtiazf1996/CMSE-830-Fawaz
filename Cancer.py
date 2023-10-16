@@ -93,7 +93,7 @@ if st.button("Generate Plot"):
         for _, row in selected_data.iterrows():
             datapoints.append(hip.Datapoint(row.to_dict()))
             hiplot_exp = hip.Experiment(datapoints=datapoints)
-            hiplot_exp.display_st(renderer=hip.Renderer.render)
+            st.write(hiplot_exp.to_html(), unsafe_allow_html=True)
 
     elif plot_selection == "Pair Plot":
         st.subheader("Pair Plot")
