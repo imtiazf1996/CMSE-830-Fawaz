@@ -89,9 +89,11 @@ if st.button("Generate Plot"):
 
     elif plot_selection == "HiPlot":
         st.subheader("HiPlot")
-        #hiplot_data = selected_data.drop(columns=['diagnosis'])
-        hiplot_exp = hip.experiment.Experiment(selected_data)
-        st.write(hiplot_exp)
+        datapoints = []
+        for _, row in selected_data.iterrows():
+            datapoints.append(hip.Datapoint(row.to_dict()))
+            hiplot_exp = hip.Experiment(datapoints=datapoints)
+            hip_exp = hiplot_exp.to_streamlit()
 
     elif plot_selection == "Pair Plot":
         st.subheader("Pair Plot")
