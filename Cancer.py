@@ -8,10 +8,10 @@ import plotly.express as px
 
 
 df1=pd.read_csv('data.csv')
-st.write("Fawaz Imtiaz")
+st.write("**Fawaz Imtiaz**")
 st.markdown('First Project of CMSE-830')
 st.markdown('Welcome to my app')
-st.write("Breast Cancer Wisconsin Dataset")
+st.write("**_Breast Cancer Wisconsin Dataset_**")
 
 description=st.checkbox("General information about this project")
 
