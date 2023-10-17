@@ -63,7 +63,7 @@ if button2:
 if st.button("Hide Columns"):
     button2=False
 
-plot_selection = st.selectbox("Select a plot type:", ["Histogram", "Scatter Plot", "Pair Plot", "Violin Plot", "3D Scatter Plot", "Correlation Heatmap"])
+plot_selection = st.selectbox("Select a plot type:", ["Histogram", "Scatter Plot", "Pair Plot", "Violin Plot", "3D Scatter Plot", "Correlation Heatmap", "HiPlot"])
 
 st.write("Please select following variables for different plotting")
 if plot_selection in ["Histogram", "Scatter Plot", "3D Scatter Plot"]:
@@ -131,3 +131,9 @@ if st.button("Generate Plot"):
         st.subheader("Violin Plot")
         fig = px.violin(df, x=xv, y=yv, color=zv, title="Violin Plot")
         st.plotly_chart(fig)
+
+    elif plot_selection == "HiPlot":
+        st.subheader("HiPlot")
+        experiment = hip.Experiment.from_dataframe(df)
+        experiment.display_st()
+        
