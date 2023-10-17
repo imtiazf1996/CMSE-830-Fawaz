@@ -135,5 +135,3 @@ if st.button("Generate Plot"):
     elif plot_selection == "HiPlot":
         st.subheader("HiPlot")
         experiment = hip.Experiment.from_dataframe(df)
-        st.components.v1.hip_experiment(experiment)
-        
