@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 import hiplot as hip
 import seaborn as sns
 import plotly.express as px
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
 
 
@@ -149,6 +152,25 @@ if st.button("## What does the data tell us?"):
     st.write("Total number of Malignant cases: ", df[df['diagnosis'] == 'M'].shape[0])
     st.write("Total number of Benign cases: ", df[df['diagnosis'] == 'B'].shape[0])
 
+    X = df.filter(like='mean')
+    y = df['diagnosis'].map({'M': 1, 'B': 0})
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    scaler = StandardScaler()
+    X_train = scaler.fit_transform(X_train)
+    X_test = scaler.transform(X_test)
+    clf = LogisticRegression()
+    clf.fit(X_train, y_train)
+    st.title("Breast Cancer Diagnosis Simulator")
+    input_data = {}
+    for feature in X.columns:
+        input_data[feature] = st.slider(f"Adjust {feature.replace('_mean', '')}", float(X[feature].min()), float(X[feature].max()), float(X[feature].mean()))
+    input_df = pd.DataFrame([input_data])
+    input_df = scaler.transform(input_df)
+    prob = clf.predict_proba(input_df)[0][1]
+    st.write(f"The likelihood of the tumor being malignant is {prob*100:.2f}%.")
+
+
+
     df3 = df2[['diagnosis'] + ['id'] + list(df2.filter(like='mean'))]
     means = df3.groupby('diagnosis')[['radius_mean', 'texture_mean', 'perimeter_mean', 'area_mean','smoothness_mean','compactness_mean','concavity_mean','concave points_mean','symmetry_mean','fractal_dimension_mean']].mean()
     comparison={}
@@ -167,4 +189,6 @@ if st.button("## What does the data tell us?"):
     rename_dict = {col: col.replace("_mean", "") for col in means.columns if "_mean" in col}
     means = means.rename(columns=rename_dict)
     st.table(means)
+
+
 
