@@ -156,5 +156,5 @@ st.write("Total number of Benign cases: ", df[df['diagnosis'] == 'B'].shape[0])
 #st.write("Average parameters for Benign tumors:")
 #st.write(df[df['diagnosis'] == 'B'].mean())
 df = df2[['diagnosis'] + ['id'] + list(df2.filter(like='mean'))]
-means = df.groupby('diagnosis')[['radius_mean', 'texture_mean']].mean()
+means = df.groupby('diagnosis')[['radius', 'texture', 'perimeter']].mean()
 st.table(means)
