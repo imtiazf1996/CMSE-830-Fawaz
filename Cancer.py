@@ -148,7 +148,6 @@ if st.button("Generate Plot"):
         st.components.v1.html(hp.to_html(), height = 800, width = 1600, scrolling=True)
 
 if st.button("## What does the data tell us?"):
-
     st.write("Total number of Malignant cases: ", df[df['diagnosis'] == 'M'].shape[0])
     st.write("Total number of Benign cases: ", df[df['diagnosis'] == 'B'].shape[0])
 
@@ -164,11 +163,10 @@ if st.button("## What does the data tell us?"):
     input_data = {}
     if 'slider_values' not in st.session_state:
         st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
-
-        for feature in X.columns:
-            st.session_state['slider_values'][feature] = st.slider(f"Adjust {feature.replace('_mean', '')}",float(X[feature].min()),float(X[feature].max()),st.session_state['slider_values'][feature])
-            input_data[feature] = st.session_state['slider_values'][feature]
-
+    for feature in X.columns:
+        input_data[feature] = st.slider(f"Adjust {feature.replace('_mean', '')}",float(X[feature].min()),float(X[feature].max()),st.session_state['slider_values'][feature])
+        st.session_state['slider_values'][feature] = input_data[feature]
+    
     input_df = pd.DataFrame([input_data])
     input_df = scaler.transform(input_df)
     prob = clf.predict_proba(input_df)[0][1]
