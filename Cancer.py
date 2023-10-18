@@ -136,4 +136,4 @@ if st.button("Generate Plot"):
         st.subheader("HiPlot")
         hp = hip.Experiment.from_dataframe(df)
         hiplot_html = hp.to_html()
-        st.components.v1.html(hp.to_html(), scrolling=True)
+        st.components.v1.html(hp.to_html(), height = 1000, width = 2000 scrolling=True)
