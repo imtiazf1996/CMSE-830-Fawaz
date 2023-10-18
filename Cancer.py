@@ -99,6 +99,7 @@ if st.button("Generate Plot"):
     
     elif plot_selection == "Scatter Plot":
         st.subheader("Scatter Plot")
+        st.markdown('[Know more about Scatter Plot](https://en.wikipedia.org/wiki/Scatter_plot)')
         fig = px.scatter(df, x=xv, y=yv, color=zv, title="Scatter Plot")
         fig.update_traces(marker=dict(size=6), selector=dict(mode='markers+text'))
         fig.update_layout(hovermode='closest')
@@ -107,6 +108,7 @@ if st.button("Generate Plot"):
 
     elif plot_selection == "Pair Plot":
         st.subheader("Pair Plot")
+        st.markdown('[Know more about Pair Plot](https://seaborn.pydata.org/generated/seaborn.pairplot.html)')
         all_columns = selected_data.columns
         exclude_column = 'diagnosis' 
         dims = [col for col in all_columns if col != exclude_column]
@@ -116,11 +118,13 @@ if st.button("Generate Plot"):
 
     elif plot_selection == "3D Scatter Plot":
         st.subheader("3D Scatter Plot")
+        st.markdown('[Know more about Scatter Plot](https://en.wikipedia.org/wiki/Scatter_plot)')
         fig = px.scatter_3d(df, x=xv, y=yv, z=z3, color='diagnosis')
         st.plotly_chart(fig)
 
     elif plot_selection == "Correlation Heatmap":
         st.subheader("Correlation Heatmap")
+        st.markdown('[Know more about Correlation Heatmap](https://www.quanthub.com/how-to-read-a-correlation-heatmap/)')
         corr_matrix = selected_data.corr()
         fig, ax = plt.subplots(figsize=(12, 10))
         sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap='coolwarm', ax=ax)
@@ -130,11 +134,13 @@ if st.button("Generate Plot"):
        
     elif plot_selection == "Violin Plot":
         st.subheader("Violin Plot")
+        st.markdown('[Know more about Violin Plot](https://en.wikipedia.org/wiki/Violin_plot)')
         fig = px.violin(df, x=xv, y=yv, color=zv, title="Violin Plot")
         st.plotly_chart(fig)
 
     elif plot_selection == "HiPlot":
         st.subheader("HiPlot")
+        st.markdown('[Know more about HiPlot](https://github.com/facebookresearch/hiplot)')
         hp = hip.Experiment.from_dataframe(df)
         hiplot_html = hp.to_html()
         st.components.v1.html(hp.to_html(), height = 800, width = 1600, scrolling=True)
