@@ -165,7 +165,8 @@ for feature in X.columns:
 input_df = pd.DataFrame([input_data])
 input_df = scaler.transform(input_df)
 prob = clf.predict_proba(input_df)[0][1]
-st.write(f"The likelihood of the tumor being malignant is {prob*100:.2f}%.")
+st.write(f"### **The likelihood of the tumor being malignant is {prob*100:.2f}%.**")
+
 if st.button("Summary"):
     st.write("Total number of Malignant cases: ", df[df['diagnosis'] == 'M'].shape[0])
     st.write("Total number of Benign cases: ", df[df['diagnosis'] == 'B'].shape[0])
