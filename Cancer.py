@@ -163,11 +163,11 @@ if st.button("## What does the data tell us?"):
     st.title("Breast Cancer Diagnosis Simulator")
     input_data = {}
     if 'slider_values' not in st.session_state:
-    st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
+        st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
 
-    for feature in X.columns:
-        st.session_state['slider_values'][feature] = st.slider(f"Adjust {feature.replace('_mean', '')}",float(X[feature].min()),float(X[feature].max()),st.session_state['slider_values'][feature])
-        input_data[feature] = st.session_state['slider_values'][feature]
+        for feature in X.columns:
+            st.session_state['slider_values'][feature] = st.slider(f"Adjust {feature.replace('_mean', '')}",float(X[feature].min()),float(X[feature].max()),st.session_state['slider_values'][feature])
+            input_data[feature] = st.session_state['slider_values'][feature]
 
     input_df = pd.DataFrame([input_data])
     input_df = scaler.transform(input_df)
