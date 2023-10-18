@@ -8,7 +8,7 @@ import plotly.express as px
 
 
 df1=pd.read_csv('data.csv')
-st.write("**Fawaz Imtiaz**")
+st.write('<span style="font-size:20px;"**Fawaz Imtiaz**"</span>')
 st.markdown('First Project of CMSE-830')
 st.markdown('Welcome to my app')
 st.write("**_Breast Cancer Wisconsin Dataset_**")
