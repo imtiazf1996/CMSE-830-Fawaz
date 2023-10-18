@@ -190,7 +190,7 @@ if st.button("Summary"):
     rename_dict = {col: col.replace("_mean", "") for col in means.columns if "_mean" in col}
     means = means.rename(columns=rename_dict)
     st.table(means)
-    st.write('# **From this dataset it is clear to see that the Malignant type cancer cell are more aggressive and has higher values in all aspect except the fractal dimension.**')
+    st.write('**From this dataset it is clear to see that the Malignant type cancer cell are more aggressive and has higher values in all aspect except the fractal dimension.**')
 
 
 
