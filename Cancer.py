@@ -162,14 +162,16 @@ if st.button("## What does the data tell us?"):
     clf.fit(X_train, y_train)
     st.title("Breast Cancer Diagnosis Simulator")
     input_data = {}
+    if 'slider_values' not in st.session_state:
+        st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
     for feature in X.columns:
-        input_data[feature] = st.slider(f"Adjust {feature.replace('_mean', '')}", float(X[feature].min()), float(X[feature].max()), float(X[feature].mean()))
+        st.session_state['slider_values'][feature] = st.slider(f"Adjust {feature.replace('_mean', '')}", float(X[feature].min()), float(X[feature].max()),st.session_state['slider_values'][feature])
+        input_data[feature] = st.session_state['slider_values'][feature]
+
     input_df = pd.DataFrame([input_data])
     input_df = scaler.transform(input_df)
     prob = clf.predict_proba(input_df)[0][1]
     st.write(f"The likelihood of the tumor being malignant is {prob*100:.2f}%.")
-
-
 
     df3 = df2[['diagnosis'] + ['id'] + list(df2.filter(like='mean'))]
     means = df3.groupby('diagnosis')[['radius_mean', 'texture_mean', 'perimeter_mean', 'area_mean','smoothness_mean','compactness_mean','concavity_mean','concave points_mean','symmetry_mean','fractal_dimension_mean']].mean()
