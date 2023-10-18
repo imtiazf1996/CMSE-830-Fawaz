@@ -146,31 +146,31 @@ if st.button("Generate Plot"):
         hp = hip.Experiment.from_dataframe(df)
         hiplot_html = hp.to_html()
         st.components.v1.html(hp.to_html(), height = 800, width = 1600, scrolling=True)
+X = df1.filter(like='mean')
+y = df1['diagnosis'].map({'M': 1, 'B': 0})
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+clf = LogisticRegression()
+clf.fit(X_train, y_train)
+st.title("Breast Cancer Diagnosis Simulator")
+input_data = {}
+if 'slider_values' not in st.session_state:
+    st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
+for feature in X.columns:
+    input_data[feature] = st.slider(f"Adjust {feature.replace('_mean', '')}",float(X[feature].min()),float(X[feature].max()),st.session_state['slider_values'][feature])
+    st.session_state['slider_values'][feature] = input_data[feature]
 
+input_df = pd.DataFrame([input_data])
+input_df = scaler.transform(input_df)
+prob = clf.predict_proba(input_df)[0][1]
+st.write(f"The likelihood of the tumor being malignant is {prob*100:.2f}%.")
 if st.button("## What does the data tell us?"):
     st.write("Total number of Malignant cases: ", df[df['diagnosis'] == 'M'].shape[0])
     st.write("Total number of Benign cases: ", df[df['diagnosis'] == 'B'].shape[0])
 
-    X = df1.filter(like='mean')
-    y = df1['diagnosis'].map({'M': 1, 'B': 0})
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    scaler = StandardScaler()
-    X_train = scaler.fit_transform(X_train)
-    X_test = scaler.transform(X_test)
-    clf = LogisticRegression()
-    clf.fit(X_train, y_train)
-    st.title("Breast Cancer Diagnosis Simulator")
-    input_data = {}
-    if 'slider_values' not in st.session_state:
-        st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
-    for feature in X.columns:
-        input_data[feature] = st.slider(f"Adjust {feature.replace('_mean', '')}",float(X[feature].min()),float(X[feature].max()),st.session_state['slider_values'][feature])
-        st.session_state['slider_values'][feature] = input_data[feature]
     
-    input_df = pd.DataFrame([input_data])
-    input_df = scaler.transform(input_df)
-    prob = clf.predict_proba(input_df)[0][1]
-    st.write(f"The likelihood of the tumor being malignant is {prob*100:.2f}%.")
 
     df3 = df2[['diagnosis'] + ['id'] + list(df2.filter(like='mean'))]
     means = df3.groupby('diagnosis')[['radius_mean', 'texture_mean', 'perimeter_mean', 'area_mean','smoothness_mean','compactness_mean','concavity_mean','concave points_mean','symmetry_mean','fractal_dimension_mean']].mean()
