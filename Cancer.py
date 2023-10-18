@@ -149,8 +149,11 @@ st.markdown("## What does the data tell us?")
 st.write("Total number of Malignant cases: ", df[df['diagnosis'] == 'M'].shape[0])
 st.write("Total number of Benign cases: ", df[df['diagnosis'] == 'B'].shape[0])
 
-st.write("Average parameters for Malignant tumors:")
-st.write(df[df['diagnosis'] == 'M'].mean())
+#st.write("Average parameters for Malignant tumors:")
+#malignant=df[df['diagnosis'] == 'M']
+#avg_radius_mean=
 
-st.write("Average parameters for Benign tumors:")
-st.write(df[df['diagnosis'] == 'B'].mean())
+#st.write("Average parameters for Benign tumors:")
+#st.write(df[df['diagnosis'] == 'B'].mean())
+means = df.groupby('diagnosis')[['radius_mean', 'texture_mean']].mean()
+st.table(means)
