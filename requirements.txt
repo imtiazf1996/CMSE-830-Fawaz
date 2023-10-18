@@ -4,4 +4,4 @@ matplotlib
 hiplot
 seaborn
 plotly
-sklearn
+scikit-learn
