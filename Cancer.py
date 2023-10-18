@@ -144,18 +144,24 @@ if st.button("Generate Plot"):
         hiplot_html = hp.to_html()
         st.components.v1.html(hp.to_html(), height = 800, width = 1600, scrolling=True)
 
-st.markdown("## What does the data tell us?")
+if st.button("## What does the data tell us?"):
 
-st.write("Total number of Malignant cases: ", df[df['diagnosis'] == 'M'].shape[0])
-st.write("Total number of Benign cases: ", df[df['diagnosis'] == 'B'].shape[0])
+    st.write("Total number of Malignant cases: ", df[df['diagnosis'] == 'M'].shape[0])
+    st.write("Total number of Benign cases: ", df[df['diagnosis'] == 'B'].shape[0])
 
-#st.write("Average parameters for Malignant tumors:")
-#malignant=df[df['diagnosis'] == 'M']
-#avg_radius_mean=
-
-#st.write("Average parameters for Benign tumors:")
-#st.write(df[df['diagnosis'] == 'B'].mean())
-if st.button('Summary'):
     df3 = df2[['diagnosis'] + ['id'] + list(df2.filter(like='mean'))]
     means = df3.groupby('diagnosis')[['radius_mean', 'texture_mean', 'perimeter_mean', 'area_mean','smoothness_mean','compactness_mean','concavity_mean','concave points_mean','symmetry_mean','fractal_dimension_mean']].mean()
+    for col in means.columns:
+    if "mean" in col:
+        if means.loc['B', col] > means.loc['M', col]:
+            diff = means.loc['B', col] - means.loc['M', col]
+            perc = (diff / means.loc['M', col]) * 100
+            comparison[col] = f"Benign higher by {perc:.2f}%"
+        else:
+            diff = means.loc['M', col] - means.loc['B', col]
+            perc = (diff / means.loc['B', col]) * 100
+            comparison[col] = f"Malignant higher by {perc:.2f}%"
+    comp = pd.DataFrame(comparison, index=['Comparison'])
+    means = pd.concat([means, comp])
     st.table(means)
+
