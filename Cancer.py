@@ -92,6 +92,7 @@ zv='diagnosis'
 if st.button("Generate Plot"):
     if plot_selection == "Histogram":
         st.subheader("Histogram")
+        st.markdown('[Know more about Histogram](https://en.wikipedia.org/wiki/Histogram)')
         fig, ax = plt.subplots()
         sns.histplot(data=df, x=xv, hue=zv, kde=True)
         st.pyplot(fig)
