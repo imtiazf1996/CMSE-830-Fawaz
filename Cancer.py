@@ -143,3 +143,14 @@ if st.button("Generate Plot"):
         hp = hip.Experiment.from_dataframe(df)
         hiplot_html = hp.to_html()
         st.components.v1.html(hp.to_html(), height = 800, width = 1600, scrolling=True)
+
+st.markdown("## What does the data tell us?")
+
+st.write("Total number of Malignant cases: ", df[df['diagnosis'] == 'M'].shape[0])
+st.write("Total number of Benign cases: ", df[df['diagnosis'] == 'B'].shape[0])
+
+st.write("Average parameters for Malignant tumors:")
+st.write(df[df['diagnosis'] == 'M'].mean())
+
+st.write("Average parameters for Benign tumors:")
+st.write(df[df['diagnosis'] == 'B'].mean())
