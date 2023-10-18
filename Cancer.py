@@ -23,13 +23,20 @@ if description:
 st.markdown("***")
             
 show_table = st.checkbox("Show Dataset Table")
-df = df1.dropna(axis=1, how='any')
+df2 = df1.dropna(axis=1, how='any')
 
 
 if show_table:
     st.write(df2)
 st.markdown("*")
 
+button=st.radio('Do you want to delete any row having NaN in at least one of the fields', ['No', 'Yes'])
+if button=='Yes':
+    df=df2.dropna();
+    st.write("You deleted rows having NaN in at least one of the fields")
+elif button=='No':
+    df = df2;
+    
 button1=st.button("Show Statistics");
 if button1:
     st.write(df.describe())
@@ -165,7 +172,7 @@ if st.button("## What does the data tell us?"):
 
     
 
-    df3 = df[['diagnosis'] + ['id'] + list(df.filter(like='mean'))]
+    df3 = df2[['diagnosis'] + ['id'] + list(df2.filter(like='mean'))]
     means = df3.groupby('diagnosis')[['radius_mean', 'texture_mean', 'perimeter_mean', 'area_mean','smoothness_mean','compactness_mean','concavity_mean','concave points_mean','symmetry_mean','fractal_dimension_mean']].mean()
     comparison={}
     for col in means.columns:
