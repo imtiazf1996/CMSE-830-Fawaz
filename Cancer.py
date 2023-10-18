@@ -23,19 +23,12 @@ if description:
 st.markdown("***")
             
 show_table = st.checkbox("Show Dataset Table")
-df2 = df1.dropna(axis=1, how='any')
+df = df1.dropna(axis=1, how='any')
 
 
 if show_table:
     st.write(df2)
 st.markdown("*")
-
-button=st.radio('Do you want to delete any row having NaN in at least one of the fields', ['No', 'Yes'])
-if button=='Yes':
-    df=df2.dropna();
-    st.write("You deleted rows having NaN in at least one of the fields")
-elif button=='No':
-    df = df2;
 
 button1=st.button("Show Statistics");
 if button1:
