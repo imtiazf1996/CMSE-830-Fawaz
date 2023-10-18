@@ -151,6 +151,7 @@ if st.button("## What does the data tell us?"):
 
     df3 = df2[['diagnosis'] + ['id'] + list(df2.filter(like='mean'))]
     means = df3.groupby('diagnosis')[['radius_mean', 'texture_mean', 'perimeter_mean', 'area_mean','smoothness_mean','compactness_mean','concavity_mean','concave points_mean','symmetry_mean','fractal_dimension_mean']].mean()
+    comparison={}
     for col in means.columns:
         if "mean" in col:
             if means.loc['B', col] > means.loc['M', col]:
