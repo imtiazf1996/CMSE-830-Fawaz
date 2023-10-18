@@ -92,9 +92,8 @@ if st.button("Generate Plot"):
     if plot_selection == "Histogram":
         st.subheader("Histogram")
         st.markdown('[Know more about Histogram](https://en.wikipedia.org/wiki/Histogram)')
-        b = st.slider("Number of bins", 5, 100, 20)
         fig1, ax = plt.subplots()
-        sns.histplot(data=df, x=xv, hue=zv,bins=b, kde=True)
+        sns.histplot(data=df, x=xv, hue=zv, kde=True)
         st.pyplot(fig1)
     
     elif plot_selection == "Scatter Plot":
