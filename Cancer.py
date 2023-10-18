@@ -92,7 +92,7 @@ if st.button("Generate Plot"):
     if plot_selection == "Histogram":
         st.subheader("Histogram")
         st.markdown('[Know more about Histogram](https://en.wikipedia.org/wiki/Histogram)')
-        b = st.sidebar.slider("Number of bins", 5, 100, 20)
+        b = st.slider("Number of bins", 5, 100, 20)
         fig, ax = plt.subplots()
         sns.histplot(data=df, x=xv, hue=zv,bins=b, kde=True)
         st.pyplot(fig)
