@@ -164,5 +164,7 @@ if st.button("## What does the data tell us?"):
                 comparison[col] = f"Malignant higher by {perc:.2f}%"
     comp = pd.DataFrame(comparison, index=['Comparison'])
     means = pd.concat([means, comp])
+    rename_dict = {col: col.replace("_mean", "") for col in means.columns if "_mean" in col}
+    means = means.rename(columns=rename_dict)
     st.table(means)
 
