@@ -166,7 +166,7 @@ input_df = pd.DataFrame([input_data])
 input_df = scaler.transform(input_df)
 prob = clf.predict_proba(input_df)[0][1]
 st.write(f"The likelihood of the tumor being malignant is {prob*100:.2f}%.")
-if st.button("## What does the data tell us?"):
+if st.button("Summary"):
     st.write("Total number of Malignant cases: ", df[df['diagnosis'] == 'M'].shape[0])
     st.write("Total number of Benign cases: ", df[df['diagnosis'] == 'B'].shape[0])
 
@@ -190,6 +190,7 @@ if st.button("## What does the data tell us?"):
     rename_dict = {col: col.replace("_mean", "") for col in means.columns if "_mean" in col}
     means = means.rename(columns=rename_dict)
     st.table(means)
+    st.write('# **From this dataset it is clear to see that the Malignant type cancer cell are more aggressive and has higher values in all aspect except the fractal dimension.**')
 
 
 
