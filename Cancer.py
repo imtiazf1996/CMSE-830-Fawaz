@@ -27,7 +27,7 @@ df2 = df1.dropna(axis=1, how='any')
 
 Column=st.checkbox("Column of Data available in this Dataset")
 if Column:
-    st.write("1. id \n2.Diagnosis (B=Benign, M=Malignant) \n3.Radius \n4.Perimeter \n5.Texture \n6.Area \n7.Smoothness \n8.Compactness \n9.Concavity \n10.Concave Points \n11.Symmetry \n12.Fractal Dimension \nEach property have the mean, the standard error, and the worst case")
+    st.write("1. id \n\n2.Diagnosis (B=Benign, M=Malignant) \n\n3.Radius \n\n4.Perimeter \n\n5.Texture \n\n6.Area \n\n7.Smoothness \n\n8.Compactness \n\n9.Concavity \n\n10.Concave Points \n\n11.Symmetry \n\n12.Fractal Dimension \n\nEach property have the mean, the standard error, and the worst case")
 st.markdown("***")
 
 if show_table:
