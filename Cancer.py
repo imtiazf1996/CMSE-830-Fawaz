@@ -209,8 +209,8 @@ elif classifier_selection in ["KNN"]:
    
     knn = KNeighborsClassifier(n_neighbors=2)  
     knn.fit(X_train, y_train)
-    st.write([input_data])
-    input_df = pd.DataFrame([input_data])
+    #st.write([input_data])
+    input_df = pd.DataFrame(input_data)
     input_df = scaler.transform(input_df)
     knn_prob = knn.predict_proba(input_df)[0][1]
     st.write(f"### **The likelihood of the tumor being malignant with KNN is {knn_prob*100:.2f}%.**")
