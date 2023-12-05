@@ -204,8 +204,8 @@ if classifier_selection in ["Logistic Regression"]:
     st.write(f"### **The likelihood of the tumor being malignant is {prob*100:.2f}%.**")
 
 elif classifier_selection in ["KNN"]:
-   
-    knn = KNeighborsClassifier(n_neighbors=5)  
+    n_neighbors_val=input("Enter neighbors between 2 and 50: ")
+    knn = KNeighborsClassifier(n_neighbors=n_neighbors_val)  
     knn.fit(X_train, y_train)
     input_df = pd.DataFrame([input_data])
     input_df = scaler.transform(input_df)
