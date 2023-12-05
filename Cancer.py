@@ -205,7 +205,7 @@ if classifier_selection in ["Logistic Regression"]:
     prob = clf.predict_proba(input_df)[0][1]
     st.write(f"### **The likelihood of the tumor being malignant is {prob*100:.2f}%.**")
 
-elif classifier_type == "KNN":
+elif classifier_selection == "KNN":
    
     knn = KNeighborsClassifier(n_neighbors=5)  
     knn.fit(X_train, y_train)
@@ -213,8 +213,3 @@ elif classifier_type == "KNN":
     input_df = scaler.transform(input_df)
     knn_prob = knn.predict_proba(input_df)[0][1]
     st.write(f"### **The likelihood of the tumor being malignant with KNN is {knn_prob*100:.2f}%.**")
-
-
-
-
-
