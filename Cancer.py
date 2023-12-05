@@ -4,9 +4,14 @@ import matplotlib.pyplot as plt
 import hiplot as hip
 import seaborn as sns
 import plotly.express as px
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import f1_score, confusion_matrix, ConfusionMatrixDisplay, accuracy_score
+from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
 
 
 
@@ -173,8 +178,9 @@ if st.button("Generate Plot"):
         hiplot_html = hp.to_html()
         st.components.v1.html(hp.to_html(), height = 800, width = 1600, scrolling=True)
 
-##KNN
+##Classifier
 
+classifier_selection = st.selectbox("Select a classifier type:", ["KNN", "Logistic Regression"])
 
 X = df1.filter(like='mean')
 y = df1['diagnosis'].map({'M': 1, 'B': 0})
@@ -182,20 +188,22 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
-clf = LogisticRegression()
-clf.fit(X_train, y_train)
-st.title("Breast Cancer Diagnosis Simulator")
-input_data = {}
-if 'slider_values' not in st.session_state:
-    st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
-for feature in X.columns:
-    input_data[feature] = st.slider(f"Adjust {feature.replace('_mean', '')}",float(X[feature].min()),float(X[feature].max()),st.session_state['slider_values'][feature])
-    st.session_state['slider_values'][feature] = input_data[feature]
 
-input_df = pd.DataFrame([input_data])
-input_df = scaler.transform(input_df)
-prob = clf.predict_proba(input_df)[0][1]
-st.write(f"### **The likelihood of the tumor being malignant is {prob*100:.2f}%.**")
+if classifier_selection in ["Logistic Regression"]:
+    clf = LogisticRegression()
+    clf.fit(X_train, y_train)
+    st.title("Breast Cancer Diagnosis Simulator")
+    input_data = {}
+    if 'slider_values' not in st.session_state:
+        st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
+    for feature in X.columns:
+        input_data[feature] = st.slider(f"Adjust {feature.replace('_mean', '')}",float(X[feature].min()),float(X[feature].max()),st.session_state['slider_values'][feature])
+        st.session_state['slider_values'][feature] = input_data[feature]
+    
+    input_df = pd.DataFrame([input_data])
+    input_df = scaler.transform(input_df)
+    prob = clf.predict_proba(input_df)[0][1]
+    st.write(f"### **The likelihood of the tumor being malignant is {prob*100:.2f}%.**")
 
 
 
