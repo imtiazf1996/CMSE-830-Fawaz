@@ -180,7 +180,7 @@ if st.button("Generate Plot"):
 
 ##Classifier
 
-classifier_selection = st.selectbox("Select a classifier type:", ["KNN", "Logistic Regression"])
+classifier_selection = st.selectbox("Select a classifier type:", ["KNN", "Logistic Regression", "SVM"])
 
 X = df1.filter(like='mean')
 y = df1['diagnosis'].map({'M': 1, 'B': 0})
@@ -211,3 +211,11 @@ elif classifier_selection in ["KNN"]:
     input_df = scaler.transform(input_df)
     knn_prob = knn.predict_proba(input_df)[0][1]
     st.write(f"### **The likelihood of the tumor being malignant with KNN is {knn_prob*100:.2f}%.**")
+
+elif clsasifier_selection in ["SVM"]:
+    svm = SVC(probability=True)  
+    svm.fit(X_train, y_train)
+    input_df = pd.DataFrame([input_data])
+    input_df = scaler.transform(input_df)
+    svm_prob = svm.predict_proba(input_df)[0][1]
+    st.write(f"### **The likelihood of the tumor being malignant with SVM is {svm_prob*100:.2f}%.**")
