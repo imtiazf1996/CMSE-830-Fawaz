@@ -209,6 +209,7 @@ elif classifier_selection in ["KNN"]:
    
     knn = KNeighborsClassifier(n_neighbors=2)  
     knn.fit(X_train, y_train)
+    st.write([input_data])
     input_df = pd.DataFrame([input_data])
     input_df = scaler.transform(input_df)
     knn_prob = knn.predict_proba(input_df)[0][1]
