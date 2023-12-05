@@ -72,8 +72,10 @@ if section == 'General Info':
         st.write(df.columns)
     if st.button("Hide Columns"):
         button2=False
+
 ##Plots EDA
-elif section == 'Plots':
+
+elif section == 'Plots (EDA)':
     plot_selection = st.selectbox("Select a plot type:", ["Histogram", "Scatter Plot", "Pair Plot", "Violin Plot", "3D Scatter Plot", "Correlation Heatmap", "HiPlot"])
     
     st.write("Please select following variables for different plotting")
@@ -148,6 +150,9 @@ elif section == 'Plots':
             hp = hip.Experiment.from_dataframe(df)
             hiplot_html = hp.to_html()
             st.components.v1.html(hp.to_html(), height = 800, width = 1600, scrolling=True)
+
+##KNN
+
 elif section == 'KNN Prediction':
     X = df1.filter(like='mean')
     y = df1['diagnosis'].map({'M': 1, 'B': 0})
