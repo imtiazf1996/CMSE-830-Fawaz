@@ -12,9 +12,6 @@ from sklearn.preprocessing import StandardScaler
 
 df1=pd.read_csv('data.csv')
 
-st.sidebar.title("Navigation")
-section = st.sidebar.radio("Go to", ['General Info', 'Plots (EDA)', 'KNN Prediction', 'Summary'])
-
 ##General Info
 
 st.write("# **_Breast Cancer Wisconsin Dataset_**")
