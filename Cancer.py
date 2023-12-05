@@ -212,7 +212,7 @@ elif classifier_selection in ["KNN"]:
     knn_prob = knn.predict_proba(input_df)[0][1]
     st.write(f"### **The likelihood of the tumor being malignant with KNN is {knn_prob*100:.2f}%.**")
 
-elif clsasifier_selection in ["SVM"]:
+elif classifier_selection in ["SVM"]:
     svm = SVC(probability=True)  
     svm.fit(X_train, y_train)
     input_df = pd.DataFrame([input_data])
