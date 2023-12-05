@@ -188,18 +188,16 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
-
+input_data = {}
+if 'slider_values' not in st.session_state:
+    st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
+for feature in X.columns:
+    input_data[feature] = st.slider(f"Adjust {feature.replace('_mean', '')}",float(X[feature].min()),float(X[feature].max()),st.session_state['slider_values'][feature])
+    st.session_state['slider_values'][feature] = input_data[feature]
 if classifier_selection in ["Logistic Regression"]:
     clf = LogisticRegression()
     clf.fit(X_train, y_train)
     st.title("Breast Cancer Diagnosis Simulator")
-    input_data = {}
-    if 'slider_values' not in st.session_state:
-        st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
-    for feature in X.columns:
-        input_data[feature] = st.slider(f"Adjust {feature.replace('_mean', '')}",float(X[feature].min()),float(X[feature].max()),st.session_state['slider_values'][feature])
-        st.session_state['slider_values'][feature] = input_data[feature]
-    
     input_df = pd.DataFrame([input_data])
     input_df = scaler.transform(input_df)
     prob = clf.predict_proba(input_df)[0][1]
@@ -209,8 +207,7 @@ elif classifier_selection in ["KNN"]:
    
     knn = KNeighborsClassifier(n_neighbors=2)  
     knn.fit(X_train, y_train)
-    #st.write([input_data])
-    input_df = pd.DataFrame(input_data)
+    input_df = pd.DataFrame([input_data])
     input_df = scaler.transform(input_df)
     knn_prob = knn.predict_proba(input_df)[0][1]
     st.write(f"### **The likelihood of the tumor being malignant with KNN is {knn_prob*100:.2f}%.**")
