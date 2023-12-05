@@ -69,24 +69,27 @@ if st.button("Hide Statistics"):
     button1=False
 
 #MEAN COMPARISON
-df3 = df2[['diagnosis'] + ['id'] + list(df2.filter(like='mean'))]
-means = df3.groupby('diagnosis')[['radius_mean', 'texture_mean', 'perimeter_mean', 'area_mean','smoothness_mean','compactness_mean','concavity_mean','concave points_mean','symmetry_mean','fractal_dimension_mean']].mean()
-comparison={}
-for col in means.columns:
-    if "mean" in col:
-        if means.loc['B', col] > means.loc['M', col]:
-            diff = means.loc['B', col] - means.loc['M', col]
-            perc = (diff / means.loc['M', col]) * 100
-            comparison[col] = f"Benign higher by {perc:.2f}%"
-        else:
-            diff = means.loc['M', col] - means.loc['B', col]
-            perc = (diff / means.loc['B', col]) * 100
-            comparison[col] = f"Malignant higher by {perc:.2f}%"
-comp = pd.DataFrame(comparison, index=['Comparison'])
-means = pd.concat([means, comp])
-rename_dict = {col: col.replace("_mean", "") for col in means.columns if "_mean" in col}
-means = means.rename(columns=rename_dict)
-st.table(means)
+button3=st.button("General Comparison between Malignant and Benign Cells")
+if button3:
+    
+    df3 = df2[['diagnosis'] + ['id'] + list(df2.filter(like='mean'))]
+    means = df3.groupby('diagnosis')[['radius_mean', 'texture_mean', 'perimeter_mean', 'area_mean','smoothness_mean','compactness_mean','concavity_mean','concave points_mean','symmetry_mean','fractal_dimension_mean']].mean()
+    comparison={}
+    for col in means.columns:
+        if "mean" in col:
+            if means.loc['B', col] > means.loc['M', col]:
+                diff = means.loc['B', col] - means.loc['M', col]
+                perc = (diff / means.loc['M', col]) * 100
+                comparison[col] = f"Benign higher by {perc:.2f}%"
+            else:
+                diff = means.loc['M', col] - means.loc['B', col]
+                perc = (diff / means.loc['B', col]) * 100
+                comparison[col] = f"Malignant higher by {perc:.2f}%"
+    comp = pd.DataFrame(comparison, index=['Comparison'])
+    means = pd.concat([means, comp])
+    rename_dict = {col: col.replace("_mean", "") for col in means.columns if "_mean" in col}
+    means = means.rename(columns=rename_dict)
+    st.table(means)
 
 ##Plots EDA
 
