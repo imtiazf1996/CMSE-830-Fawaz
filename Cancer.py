@@ -207,7 +207,7 @@ if classifier_selection in ["Logistic Regression"]:
 
 elif classifier_selection in ["KNN"]:
    
-    knn = KNeighborsClassifier(n_neighbors=5)  
+    knn = KNeighborsClassifier(n_neighbors=2)  
     knn.fit(X_train, y_train)
     input_df = pd.DataFrame([input_data])
     input_df = scaler.transform(input_df)
