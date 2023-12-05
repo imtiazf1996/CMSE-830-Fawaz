@@ -51,31 +51,32 @@ if section == 'General Info':
     if st.button("Hide Statistics"):
         button1=False
     
-    selected_group = st.radio('Choose a feature group to keep:', ['Worst Features', 'Mean Features', 'Standard Error Features', 'Keep All'])
-    
-    if selected_group == 'Worst Features':
-        df = df[['diagnosis'] + ['id'] + list(df.filter(like='worst'))]
-    elif selected_group == 'Mean Features':
-        df = df[['diagnosis'] + ['id'] + list(df.filter(like='mean'))]
-    elif selected_group == 'Standard Error Features':
-        df = df[['diagnosis'] + ['id'] + list(df.filter(like='se'))]
-    else:
-        pass
-    
-    cols=df.columns
-    red_df=df.iloc[:,0:32]
-    red_cols=red_df.columns
-    button2=st.button("Show Columns");
-    if button2:
-        st.write("No. of columns are ",len(cols))
-        st.write("The columns are following-")
-        st.write(df.columns)
-    if st.button("Hide Columns"):
-        button2=False
 
 ##Plots EDA
 
 elif section == 'Plots (EDA)':
+    selected_group = st.radio('Choose a feature group to keep:', ['Worst Features', 'Mean Features', 'Standard Error Features', 'Keep All'])
+        
+        if selected_group == 'Worst Features':
+            df = df[['diagnosis'] + ['id'] + list(df.filter(like='worst'))]
+        elif selected_group == 'Mean Features':
+            df = df[['diagnosis'] + ['id'] + list(df.filter(like='mean'))]
+        elif selected_group == 'Standard Error Features':
+            df = df[['diagnosis'] + ['id'] + list(df.filter(like='se'))]
+        else:
+            pass
+        
+        cols=df.columns
+        red_df=df.iloc[:,0:32]
+        red_cols=red_df.columns
+        button2=st.button("Show Columns");
+        if button2:
+            st.write("No. of columns are ",len(cols))
+            st.write("The columns are following-")
+            st.write(df.columns)
+        if st.button("Hide Columns"):
+            button2=False
+
     plot_selection = st.selectbox("Select a plot type:", ["Histogram", "Scatter Plot", "Pair Plot", "Violin Plot", "3D Scatter Plot", "Correlation Heatmap", "HiPlot"])
     
     st.write("Please select following variables for different plotting")
