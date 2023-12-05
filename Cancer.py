@@ -65,6 +65,9 @@ if st.button("Hide Columns"):
 button1=st.button("Show Statistics");
 if button1:
     st.write(df.describe())
+    st.write("Total number of Malignant cases: ", df[df['diagnosis'] == 'M'].shape[0])
+    st.write("Total number of Benign cases: ", df[df['diagnosis'] == 'B'].shape[0])
+
 if st.button("Hide Statistics"):
     button1=False
 
@@ -194,9 +197,6 @@ input_df = scaler.transform(input_df)
 prob = clf.predict_proba(input_df)[0][1]
 st.write(f"### **The likelihood of the tumor being malignant is {prob*100:.2f}%.**")
 
-
-st.write("Total number of Malignant cases: ", df[df['diagnosis'] == 'M'].shape[0])
-st.write("Total number of Benign cases: ", df[df['diagnosis'] == 'B'].shape[0])
 
 
 
