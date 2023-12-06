@@ -334,41 +334,36 @@ st.write("## Regression Analysis")
 independent_var = st.selectbox('Select the independent variable', df1.columns)
 dependent_var = st.selectbox('Select the dependent variable', df1.columns)
 
-# Ensure the user doesn't select the same variable for both
-if independent_var != dependent_var:
-    # Perform regression without train-test split
-    if st.button('Run Regression without Train-Test Split'):
-        X = df1[[independent_var]]
-        y = df1[dependent_var]
-        model = LinearRegression().fit(X, y)
-        
-        st.write(f'Coefficient: {model.coef_[0]}')
-        st.write(f'Intercept: {model.intercept_}')
-        st.write(f'R-squared: {model.score(X, y)}')
+if st.button('Run Regression without Train-Test Split'):
+    X = df1[[independent_var]]
+    y = df1[dependent_var]
+    model = LinearRegression().fit(X, y)
+    
+    st.write(f'Coefficient: {model.coef_[0]}')
+    st.write(f'Intercept: {model.intercept_}')
+    st.write(f'R-squared: {model.score(X, y)}')
 
-        # Plot
-        plt.scatter(X, y, color='blue')
-        plt.plot(X, model.predict(X), color='red')
-        plt.xlabel(independent_var)
-        plt.ylabel(dependent_var)
-        plt.title('Linear Regression Analysis')
-        st.pyplot(plt)
+    # Plot
+    plt.scatter(X, y, color='blue')
+    plt.plot(X, model.predict(X), color='red')
+    plt.xlabel(independent_var)
+    plt.ylabel(dependent_var)
+    plt.title('Linear Regression Analysis')
+    st.pyplot(plt)
 
-    # Perform regression with train-test split
-    if st.button('Run Regression with Train-Test Split'):
-        X = df1[[independent_var]]
-        y = df1[dependent_var]
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-        
-        model = LinearRegression().fit(X_train, y_train)
-        st.write(f'Test R-squared: {model.score(X_test, y_test)}')
+# Perform regression with train-test split
+if st.button('Run Regression with Train-Test Split'):
+    X = df1[[independent_var]]
+    y = df1[dependent_var]
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    
+    model = LinearRegression().fit(X_train, y_train)
+    st.write(f'Test R-squared: {model.score(X_test, y_test)}')
 
-        # Plot for test set
-        plt.scatter(X_test, y_test, color='blue')
-        plt.plot(X_test, model.predict(X_test), color='red')
-        plt.xlabel(independent_var)
-        plt.ylabel(dependent_var)
-        plt.title('Regression Analysis with Train-Test Split')
-        st.pyplot(plt)
-else:
-    st.error("Please select different variables for the independent and dependent variable.")
+    # Plot for test set
+    plt.scatter(X_test, y_test, color='blue')
+    plt.plot(X_test, model.predict(X_test), color='red')
+    plt.xlabel(independent_var)
+    plt.ylabel(dependent_var)
+    plt.title('Regression Analysis with Train-Test Split')
+    st.pyplot(plt)
