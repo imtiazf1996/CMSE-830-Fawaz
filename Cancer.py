@@ -302,8 +302,10 @@ elif classifier_selection in ["Naive Bayes"]:
 #PCA
 st.markdown("## :blue[Principal Component Analysis (PCA)]")
 
-if 'df' in locals() and len(df.columns) > 1:
+if 'df' in locals() and hasattr(df, 'columns') and len(df.columns) >= 3:
     selected_features = st.multiselect('Select features for PCA:', df.columns, default=df.columns[:3])
+else:
+    st.write("Data not available or insufficient for PCA.")
     
     if selected_features:
         # Scaling the selected features
@@ -323,6 +325,5 @@ if 'df' in locals() and len(df.columns) > 1:
            zaxis_title='Principal Component 3'),
            title="PCA of Selected Features")
         st.plotly_chart(fig)
-else:
-    st.write("Please select a feature group and features for PCA.")
+
 
