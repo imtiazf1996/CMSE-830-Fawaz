@@ -216,7 +216,12 @@ if classifier_selection in ["Logistic Regression"]:
     st.write(f"### **The likelihood of the tumor being malignant is {prob*100:.2f}%.**")
     y_pred_lr = clf.predict(X_test)
     cm_lr = confusion_matrix(y_test, y_pred_lr)
+    accuracy_lr = accuracy_score(y_test, y_pred_lr)
+    f1_lr = f1_score(y_test, y_pred_lr)
+    st.write(f"Accuracy (Logistic Regression): {accuracy_lr:.2f}")
+    st.write(f"F1 Score (Logistic Regression): {f1_lr:.2f}")
     plot_confusion_matrix(cm_lr, "Logistic Regression")
+
 elif classifier_selection in ["KNN"]:
     n_neighbors_val = st.slider("Choose neighbor value", min_value=2, max_value=50, value=25, step=1)
     knn = KNeighborsClassifier(n_neighbors=n_neighbors_val)  
@@ -225,6 +230,13 @@ elif classifier_selection in ["KNN"]:
     input_df = scaler.transform(input_df)
     knn_prob = knn.predict_proba(input_df)[0][1]
     st.write(f"### **The likelihood of the tumor being malignant with KNN is {knn_prob*100:.2f}%.**")
+    y_pred_lr = clf.predict(X_test)
+    cm_lr = confusion_matrix(y_test, y_pred_lr)
+    accuracy_lr = accuracy_score(y_test, y_pred_lr)
+    f1_lr = f1_score(y_test, y_pred_lr)
+    st.write(f"Accuracy (KNN): {accuracy_lr:.2f}")
+    st.write(f"F1 Score (KNN): {f1_lr:.2f}")
+    plot_confusion_matrix(cm_lr, "KNN")
 
 elif classifier_selection in ["SVM"]:
     svm = SVC(probability=True)  
@@ -233,27 +245,43 @@ elif classifier_selection in ["SVM"]:
     input_df = scaler.transform(input_df)
     svm_prob = svm.predict_proba(input_df)[0][1]
     st.write(f"### **The likelihood of the tumor being malignant with SVM is {svm_prob*100:.2f}%.**")
+    y_pred_lr = clf.predict(X_test)
+    cm_lr = confusion_matrix(y_test, y_pred_lr)
+    accuracy_lr = accuracy_score(y_test, y_pred_lr)
+    f1_lr = f1_score(y_test, y_pred_lr)
+    st.write(f"Accuracy (SVM): {accuracy_lr:.2f}")
+    st.write(f"F1 Score (SVM): {f1_lr:.2f}")
+    plot_confusion_matrix(cm_lr, "SVM")
 
 elif classifier_selection in ["Random Tree"]:
     rf_clf = RandomForestClassifier(n_estimators=100, random_state=42)  # Number of trees can be adjusted
     rf_clf.fit(X_train, y_train)
-    
-    # Use the same UI code for getting user inputs
     input_df = pd.DataFrame([input_data])
     input_df = scaler.transform(input_df)
-
-    # Making predictions with Random Forest
     rf_prob = rf_clf.predict_proba(input_df)[0][1]
     st.write(f"### **The likelihood of the tumor being malignant with Random Forest is {rf_prob*100:.2f}%.**")
+    y_pred_lr = clf.predict(X_test)
+    cm_lr = confusion_matrix(y_test, y_pred_lr)
+    accuracy_lr = accuracy_score(y_test, y_pred_lr)
+    f1_lr = f1_score(y_test, y_pred_lr)
+    st.write(f"Accuracy (Random Tree): {accuracy_lr:.2f}")
+    st.write(f"F1 Score (Random Tree): {f1_lr:.2f}")
+    plot_confusion_matrix(cm_lr, "Random Tree")
 
 elif classifier_selection in ["Gradient Boosting"]:
     gb_clf = GradientBoostingClassifier(n_estimators=100, learning_rate=0.1, max_depth=3, random_state=42)
     gb_clf.fit(X_train, y_train)
-    
     input_df = pd.DataFrame([input_data])
     input_df = scaler.transform(input_df)
     gb_prob = gb_clf.predict_proba(input_df)[0][1]
     st.write(f"### **The likelihood of the tumor being malignant with Gradient Boosting is {gb_prob*100:.2f}%.**")
+    y_pred_lr = clf.predict(X_test)
+    cm_lr = confusion_matrix(y_test, y_pred_lr)
+    accuracy_lr = accuracy_score(y_test, y_pred_lr)
+    f1_lr = f1_score(y_test, y_pred_lr)
+    st.write(f"Accuracy (Gradient Boosting): {accuracy_lr:.2f}")
+    st.write(f"F1 Score (Gradient Boosting): {f1_lr:.2f}")
+    plot_confusion_matrix(cm_lr, "Gradient Boosting")
 
 elif classifier_selection in ["Naive Bayes"]:
     nb_clf = GaussianNB()
@@ -262,4 +290,11 @@ elif classifier_selection in ["Naive Bayes"]:
     input_df = scaler.transform(input_df)
     nb_prob = nb_clf.predict_proba(input_df)[0][1]
     st.write(f"### **The likelihood of the tumor being malignant with Naive Bayes is {nb_prob*100:.2f}%.**")
+    y_pred_lr = clf.predict(X_test)
+    cm_lr = confusion_matrix(y_test, y_pred_lr)
+    accuracy_lr = accuracy_score(y_test, y_pred_lr)
+    f1_lr = f1_score(y_test, y_pred_lr)
+    st.write(f"Accuracy (Naive Bayes): {accuracy_lr:.2f}")
+    st.write(f"F1 Score (Naive Bayes): {f1_lr:.2f}")
+    plot_confusion_matrix(cm_lr, "Naive Bayes")
 
