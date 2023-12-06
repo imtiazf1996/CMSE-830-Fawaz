@@ -14,6 +14,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.decomposition import PCA
+from sklearn.linear_model import LinearRegression
 
 
 df1=pd.read_csv('data.csv')
@@ -371,6 +372,3 @@ if independent_var != dependent_var:
         st.pyplot(plt)
 else:
     st.error("Please select different variables for the independent and dependent variable.")
-
-
-
