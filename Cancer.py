@@ -13,6 +13,7 @@ from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.naive_bayes import GaussianNB
+from sklearn.decomposition import PCA
 
 
 df1=pd.read_csv('data.csv')
@@ -297,4 +298,27 @@ elif classifier_selection in ["Naive Bayes"]:
     st.write(f"Accuracy (Naive Bayes): {accuracy_lr:.2f}")
     st.write(f"F1 Score (Naive Bayes): {f1_lr:.2f}")
     plot_confusion_matrix(cm_lr, "Naive Bayes")
+
+#PCA
+
+st.markdown("## :blue[Principal Component Analysis (PCA)]")
+selected_features = st.multiselect('Select features for PCA:', df.columns, default=df.columns[:3])
+if selected_features:
+    # Scaling the features
+    scaler = StandardScaler()
+    df_scaled = scaler.fit_transform(df[selected_features])
+
+    # Applying PCA
+    pca = PCA(n_components=3)  # Adjust n_components as needed
+    principal_components = pca.fit_transform(df_scaled)
+    pca_df = pd.DataFrame(data=principal_components, columns=['PC1', 'PC2', 'PC3'])
+
+if selected_features:
+    fig = px.scatter_3d(pca_df, x='PC1', y='PC2', z='PC3')
+    fig.update_layout(scene=dict(
+        xaxis_title='Principal Component 1',
+        yaxis_title='Principal Component 2',
+        zaxis_title='Principal Component 3'),
+        title="PCA of Selected Features")
+    st.plotly_chart(fig)
 
