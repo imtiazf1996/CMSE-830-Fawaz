@@ -331,8 +331,8 @@ if selected_features:
 st.write("## Regression Analysis")
 
 # User selects independent and dependent variables
-independent_var = st.selectbox('Select the independent variable', df1.columns)
-dependent_var = st.selectbox('Select the dependent variable', df1.columns)
+independent_var = st.selectbox('Select the independent variable', cols)
+dependent_var = st.selectbox('Select the dependent variable', cols)
 
 if st.button('Run Regression without Train-Test Split'):
     plt.figure()
