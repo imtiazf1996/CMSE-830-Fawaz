@@ -324,5 +324,6 @@ if selected_features:
 
     explained_variance = pca.explained_variance_ratio_
     st.bar_chart(explained_variance)
+    st.write(f"Explained Variance per PC: {explained_variance}")
 
 
