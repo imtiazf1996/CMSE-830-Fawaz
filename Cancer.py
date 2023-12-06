@@ -322,4 +322,7 @@ if selected_features:
        title="PCA of Selected Features")
     st.plotly_chart(fig)
 
+    explained_variance = pca.explained_variance_ratio_
+    st.bar_chart(explained_variance)
+
 
