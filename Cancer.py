@@ -11,7 +11,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import GradientBoostingClassifier
 
 
 
@@ -180,7 +180,7 @@ if st.button("Generate Plot"):
 
 ##Classifier
 
-classifier_selection = st.selectbox("Select a classifier type:", ["KNN", "Logistic Regression", "SVM", "Random Tree"])
+classifier_selection = st.selectbox("Select a classifier type:", ["KNN", "Logistic Regression", "SVM", "Random Tree", "Gradient Boosting"])
 
 X = df1.filter(like='mean')
 y = df1['diagnosis'].map({'M': 1, 'B': 0})
@@ -232,3 +232,11 @@ elif classifier_selection in ["Random Tree"]:
     rf_prob = rf_clf.predict_proba(input_df)[0][1]
     st.write(f"### **The likelihood of the tumor being malignant with Random Forest is {rf_prob*100:.2f}%.**")
 
+elif classifier_selection in ["Gradient Boosting"]:
+    gb_clf = GradientBoostingClassifier(n_estimators=100, learning_rate=0.1, max_depth=3, random_state=42)
+    gb_clf.fit(X_train, y_train)
+    
+    input_df = pd.DataFrame([input_data])
+    input_df = scaler.transform(input_df)
+    gb_prob = gb_clf.predict_proba(input_df)[0][1]
+    st.write(f"### **The likelihood of the tumor being malignant with Gradient Boosting is {gb_prob*100:.2f}%.**")
