@@ -301,7 +301,7 @@ elif classifier_selection in ["Naive Bayes"]:
 
 #PCA
 st.markdown("## :blue[Principal Component Analysis (PCA)]")
-selected_features = st.multiselect('Select features for PCA:', df.columns, default=df.columns[:3])
+selected_features = st.multiselect('Select variables:', cols)
 
 if selected_features:
     # Scaling the selected features
