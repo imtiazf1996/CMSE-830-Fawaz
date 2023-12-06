@@ -180,7 +180,7 @@ if st.button("Generate Plot"):
 
 ##Classifier
 
-classifier_selection = st.selectbox("Select a classifier type:", ["KNN", "Logistic Regression", "SVM"])
+classifier_selection = st.selectbox("Select a classifier type:", ["KNN", "Logistic Regression", "SVM", "Random Tree"])
 
 X = df1.filter(like='mean')
 y = df1['diagnosis'].map({'M': 1, 'B': 0})
@@ -219,3 +219,16 @@ elif classifier_selection in ["SVM"]:
     input_df = scaler.transform(input_df)
     svm_prob = svm.predict_proba(input_df)[0][1]
     st.write(f"### **The likelihood of the tumor being malignant with SVM is {svm_prob*100:.2f}%.**")
+
+elif classifier_selection in ["Random Tree"]:
+    rf_clf = RandomForestClassifier(n_estimators=100, random_state=42)  # Number of trees can be adjusted
+    rf_clf.fit(X_train, y_train)
+    
+    # Use the same UI code for getting user inputs
+    input_df = pd.DataFrame([input_data])
+    input_df = scaler.transform(input_df)
+
+    # Making predictions with Random Forest
+    rf_prob = rf_clf.predict_proba(input_df)[0][1]
+    st.write(f"### **The likelihood of the tumor being malignant with Random Forest is {rf_prob*100:.2f}%.**")
+
