@@ -300,25 +300,29 @@ elif classifier_selection in ["Naive Bayes"]:
     plot_confusion_matrix(cm_lr, "Naive Bayes")
 
 #PCA
-
 st.markdown("## :blue[Principal Component Analysis (PCA)]")
-selected_features = st.multiselect('Select features for PCA:', df1.columns, default=df1.columns[:3])
-if selected_features:
-    # Scaling the features
-    scaler = StandardScaler()
-    df_scaled = scaler.fit_transform(df[selected_features])
 
-    # Applying PCA
-    pca = PCA(n_components=3)  # Adjust n_components as needed
-    principal_components = pca.fit_transform(df_scaled)
-    pca_df = pd.DataFrame(data=principal_components, columns=['PC1', 'PC2', 'PC3'])
+if 'df' in locals() and len(df.columns) > 1:
+    selected_features = st.multiselect('Select features for PCA:', df.columns, default=df.columns[:3])
+    
+    if selected_features:
+        # Scaling the selected features
+        scaler = StandardScaler()
+        df_scaled = scaler.fit_transform(df[selected_features])
 
-if selected_features:
-    fig = px.scatter_3d(pca_df, x='PC1', y='PC2', z='PC3')
-    fig.update_layout(scene=dict(
-        xaxis_title='Principal Component 1',
-        yaxis_title='Principal Component 2',
-        zaxis_title='Principal Component 3'),
-        title="PCA of Selected Features")
-    st.plotly_chart(fig)
+        # Applying PCA
+        pca = PCA(n_components=3)  # Adjust n_components as needed
+        principal_components = pca.fit_transform(df_scaled)
+        pca_df = pd.DataFrame(data=principal_components, columns=['PC1', 'PC2', 'PC3'])
+
+        # Visualizing the PCA Results
+        fig = px.scatter_3d(pca_df, x='PC1', y='PC2', z='PC3')
+        fig.update_layout(scene=dict(
+           xaxis_title='Principal Component 1',
+           yaxis_title='Principal Component 2',
+           zaxis_title='Principal Component 3'),
+           title="PCA of Selected Features")
+        st.plotly_chart(fig)
+else:
+    st.write("Please select a feature group and features for PCA.")
 
