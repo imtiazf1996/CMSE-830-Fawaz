@@ -189,11 +189,23 @@ scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 input_data = {}
+
 if 'slider_values' not in st.session_state:
     st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
 for feature in X.columns:
     input_data[feature] = st.slider(f"Adjust {feature.replace('_mean', '')}",float(X[feature].min()),float(X[feature].max()),st.session_state['slider_values'][feature])
     st.session_state['slider_values'][feature] = input_data[feature]
+
+#Confusion Matrix
+def plot_confusion_matrix(cm, classifier_name):
+    plt.figure(figsize=(5,5))
+    sns.heatmap(cm, annot=True, fmt="d", linewidths=.5, square=True, cmap='Blues')
+    plt.ylabel('Actual label')
+    plt.xlabel('Predicted label')
+    plt.title(f'Confusion Matrix for {classifier_name}', size=15)
+    st.pyplot(plt)
+
+
 if classifier_selection in ["Logistic Regression"]:
     clf = LogisticRegression()
     clf.fit(X_train, y_train)
@@ -202,7 +214,9 @@ if classifier_selection in ["Logistic Regression"]:
     input_df = scaler.transform(input_df)
     prob = clf.predict_proba(input_df)[0][1]
     st.write(f"### **The likelihood of the tumor being malignant is {prob*100:.2f}%.**")
-
+    y_pred_lr = clf.predict(X_test)
+    cm_lr = confusion_matrix(y_test, y_pred_lr)
+    plot_confusion_matrix(cm_lr, "Logistic Regression")
 elif classifier_selection in ["KNN"]:
     n_neighbors_val = st.slider("Choose neighbor value", min_value=2, max_value=50, value=25, step=1)
     knn = KNeighborsClassifier(n_neighbors=n_neighbors_val)  
@@ -248,3 +262,4 @@ elif classifier_selection in ["Naive Bayes"]:
     input_df = scaler.transform(input_df)
     nb_prob = nb_clf.predict_proba(input_df)[0][1]
     st.write(f"### **The likelihood of the tumor being malignant with Naive Bayes is {nb_prob*100:.2f}%.**")
+
