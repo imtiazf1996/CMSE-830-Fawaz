@@ -335,6 +335,7 @@ independent_var = st.selectbox('Select the independent variable', df1.columns)
 dependent_var = st.selectbox('Select the dependent variable', df1.columns)
 
 if st.button('Run Regression without Train-Test Split'):
+    plt.figure()
     X = df1[[independent_var]]
     y = df1[dependent_var]
     model = LinearRegression().fit(X, y)
@@ -353,10 +354,10 @@ if st.button('Run Regression without Train-Test Split'):
 
 # Perform regression with train-test split
 if st.button('Run Regression with Train-Test Split'):
+    plt.figure()
     X = df1[[independent_var]]
     y = df1[dependent_var]
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    
     model = LinearRegression().fit(X_train, y_train)
     st.write(f'Test R-squared: {model.score(X_test, y_test)}')
 
