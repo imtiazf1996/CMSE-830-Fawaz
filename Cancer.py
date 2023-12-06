@@ -12,7 +12,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import GradientBoostingClassifier
-
+from sklearn.naive_bayes import GaussianNB
 
 
 df1=pd.read_csv('data.csv')
@@ -180,7 +180,7 @@ if st.button("Generate Plot"):
 
 ##Classifier
 
-classifier_selection = st.selectbox("Select a classifier type:", ["KNN", "Logistic Regression", "SVM", "Random Tree", "Gradient Boosting"])
+classifier_selection = st.selectbox("Select a classifier type:", ["KNN", "Logistic Regression", "SVM", "Random Tree", "Gradient Boosting", "Naive Bayes"])
 
 X = df1.filter(like='mean')
 y = df1['diagnosis'].map({'M': 1, 'B': 0})
@@ -240,3 +240,11 @@ elif classifier_selection in ["Gradient Boosting"]:
     input_df = scaler.transform(input_df)
     gb_prob = gb_clf.predict_proba(input_df)[0][1]
     st.write(f"### **The likelihood of the tumor being malignant with Gradient Boosting is {gb_prob*100:.2f}%.**")
+
+elif classifier_selection in ["Naive Bayes"]:
+    nb_clf = GaussianNB()
+    nb_clf.fit(X_train, y_train)
+    input_df = pd.DataFrame([input_data])
+    input_df = scaler.transform(input_df)
+    nb_prob = nb_clf.predict_proba(input_df)[0][1]
+    st.write(f"### **The likelihood of the tumor being malignant with Naive Bayes is {nb_prob*100:.2f}%.**")
