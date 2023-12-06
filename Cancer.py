@@ -57,8 +57,7 @@ elif selected_group == 'Standard Error Features':
     df = df[['diagnosis'] + ['id'] + list(df.filter(like='se'))]
 else:
     pass
-if 'df' in locals() and hasattr(df, 'columns') and len(df.columns) >= 3:
-    selected_features = st.multiselect('Select features for PCA:', df.columns, default=df.columns[:3])
+
 cols=df.columns
 red_df=df.iloc[:,0:32]
 red_cols=red_df.columns
@@ -302,12 +301,8 @@ elif classifier_selection in ["Naive Bayes"]:
 
 #PCA
 st.markdown("## :blue[Principal Component Analysis (PCA)]")
+selected_features = st.multiselect('Select features for PCA:', df.columns, default=df.columns[:3])
 
-if 'df' in locals() and hasattr(df, 'columns') and len(df.columns) >= 3:
-    selected_features = st.multiselect('Select features for PCA:', df.columns, default=df.columns[:3])
-else:
-    st.write("Data not available or insufficient for PCA.")
-    
     if selected_features:
         # Scaling the selected features
         scaler = StandardScaler()
