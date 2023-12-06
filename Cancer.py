@@ -230,7 +230,7 @@ elif classifier_selection in ["KNN"]:
     input_df = scaler.transform(input_df)
     knn_prob = knn.predict_proba(input_df)[0][1]
     st.write(f"### **The likelihood of the tumor being malignant with KNN is {knn_prob*100:.2f}%.**")
-    y_pred_lr = clf.predict(X_test)
+    y_pred_lr = knn.predict(X_test)
     cm_lr = confusion_matrix(y_test, y_pred_lr)
     accuracy_lr = accuracy_score(y_test, y_pred_lr)
     f1_lr = f1_score(y_test, y_pred_lr)
@@ -245,7 +245,7 @@ elif classifier_selection in ["SVM"]:
     input_df = scaler.transform(input_df)
     svm_prob = svm.predict_proba(input_df)[0][1]
     st.write(f"### **The likelihood of the tumor being malignant with SVM is {svm_prob*100:.2f}%.**")
-    y_pred_lr = clf.predict(X_test)
+    y_pred_lr = svm.predict(X_test)
     cm_lr = confusion_matrix(y_test, y_pred_lr)
     accuracy_lr = accuracy_score(y_test, y_pred_lr)
     f1_lr = f1_score(y_test, y_pred_lr)
@@ -260,7 +260,7 @@ elif classifier_selection in ["Random Tree"]:
     input_df = scaler.transform(input_df)
     rf_prob = rf_clf.predict_proba(input_df)[0][1]
     st.write(f"### **The likelihood of the tumor being malignant with Random Forest is {rf_prob*100:.2f}%.**")
-    y_pred_lr = clf.predict(X_test)
+    y_pred_lr = rf_clf.predict(X_test)
     cm_lr = confusion_matrix(y_test, y_pred_lr)
     accuracy_lr = accuracy_score(y_test, y_pred_lr)
     f1_lr = f1_score(y_test, y_pred_lr)
@@ -275,7 +275,7 @@ elif classifier_selection in ["Gradient Boosting"]:
     input_df = scaler.transform(input_df)
     gb_prob = gb_clf.predict_proba(input_df)[0][1]
     st.write(f"### **The likelihood of the tumor being malignant with Gradient Boosting is {gb_prob*100:.2f}%.**")
-    y_pred_lr = clf.predict(X_test)
+    y_pred_lr = gb_clf.predict(X_test)
     cm_lr = confusion_matrix(y_test, y_pred_lr)
     accuracy_lr = accuracy_score(y_test, y_pred_lr)
     f1_lr = f1_score(y_test, y_pred_lr)
@@ -290,7 +290,7 @@ elif classifier_selection in ["Naive Bayes"]:
     input_df = scaler.transform(input_df)
     nb_prob = nb_clf.predict_proba(input_df)[0][1]
     st.write(f"### **The likelihood of the tumor being malignant with Naive Bayes is {nb_prob*100:.2f}%.**")
-    y_pred_lr = clf.predict(X_test)
+    y_pred_lr = nb_clf.predict(X_test)
     cm_lr = confusion_matrix(y_test, y_pred_lr)
     accuracy_lr = accuracy_score(y_test, y_pred_lr)
     f1_lr = f1_score(y_test, y_pred_lr)
