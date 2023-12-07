@@ -214,9 +214,12 @@ if selected_tab == "Classifier":
         clf.fit(X_train, y_train)
         st.title("Breast Cancer Diagnosis Simulator")
         
-        input_data = scaler.transform(input_data)  # Updated line
+        input_array = np.array(list(input_data.values())).reshape(1, -1)
         
-        prob = clf.predict_proba(input_data)[0][1]
+        # Scale the input data using the scaler
+        input_array = scaler.transform(input_array)
+        
+        prob = clf.predict_proba(input_array)[0][1]
         st.write(f"### **The likelihood of the tumor being malignant is {prob*100:.2f}%.**")
         y_pred_lr = clf.predict(X_test)
         cm_lr = confusion_matrix(y_test, y_pred_lr)
