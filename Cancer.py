@@ -80,7 +80,7 @@ if selected_tab == "Home":
     if st.button("Hide"):
         button3=False
 
-##Classifier
+##Plots
 if selected_tab == "Plots (EDA)":
     selected_group = st.radio('Choose a feature group to keep:', ['Worst Features', 'Mean Features', 'Standard Error Features', 'Keep All'])
     
@@ -177,20 +177,13 @@ if selected_tab == "Plots (EDA)":
 
 if selected_tab == "Classifier":
     st.write("# *Predict Cell Type*")
-    selected_group = st.radio('Choose a feature group to keep:', ['Worst Features', 'Mean Features', 'Standard Error Features'])
+    selected_group = 'Mean Features'
+
+    df = df[['diagnosis'] + ['id'] + list(df.filter(like='mean'))]
     
-    if selected_group == 'Worst Features':
-        df = df[['diagnosis'] + ['id'] + list(df.filter(like='worst'))]
-    elif selected_group == 'Mean Features':
-        df = df[['diagnosis'] + ['id'] + list(df.filter(like='mean'))]
-    elif selected_group == 'Standard Error Features':
-        df = df[['diagnosis'] + ['id'] + list(df.filter(like='se'))]
-    
-    cols=df.columns
-    red_df=df.iloc[:,0:32]
-    red_cols=red_df.columns
-    
-    classifier_selection = st.selectbox("Select a classifier type:", ["KNN", "Logistic Regression", "SVM", "Random Tree", "Gradient Boosting", "Naive Bayes"])
+    cols = df.columns
+    red_df = df.iloc[:, 0:32]
+    red_cols = red_df.columns
     
     X = df.iloc[:, 2:]
     y = df['diagnosis'].map({'M': 1, 'B': 0})
@@ -199,26 +192,16 @@ if selected_tab == "Classifier":
     X_train = scaler.fit_transform(X_train)
     X_test = scaler.transform(X_test)
     input_data = {}
- 
-    # Define the tab options
-    tabs = ['Mean Features', 'Standard Error Features', 'Worst Features']
-
+    
+    tabs = ['Mean Features']
+    
     if 'slider_values' not in st.session_state:
-        st.session_state['slider_values'] = {feature: 0.0 for feature in X.columns}
+        st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
     
     for feature in X.columns:
-        slider_label = f"Adjust {feature.replace('_mean', '').replace('_se', '').replace('_worst', '')}"
-        feature_type = None
-        if '_mean' in feature:
-            feature_type = 'mean'
-        elif '_se' in feature:
-            feature_type = 'se'
-        elif '_worst' in feature:
-            feature_type = 'worst'
-    
+        slider_label = f"Adjust {feature.replace('_mean', '')}"
         input_data[feature] = st.slider(slider_label, float(X[feature].min()), float(X[feature].max()), st.session_state['slider_values'][feature])
         st.session_state['slider_values'][feature] = input_data[feature]
-
     #Confusion Matrix
     def plot_confusion_matrix(cm, classifier_name):
         plt.figure(figsize=(5,5))
