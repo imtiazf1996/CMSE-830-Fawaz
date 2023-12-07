@@ -178,7 +178,7 @@ if selected_tab == "Plots (EDA)":
 if selected_tab == "Classifier":
     st.write("# *Predict Cell Type*")
 
-    classifier_selection= st.selectbox("Select a classifier type:", ["KNN", "SVM", "Gradient Boosting", "Logistic Regression", "Random Tree", "Naive Bayes"])
+    classifier_selection = st.selectbox("Select a classifier type:", ["KNN", "SVM", "Gradient Boosting", "Logistic Regression", "Random Tree", "Naive Bayes"])
     X = df.filter(like='mean')
     y = df['diagnosis'].map({'M': 1, 'B': 0})
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -209,12 +209,17 @@ if selected_tab == "Classifier":
         st.pyplot(plt)
     
     
-    if classifier_selection in ["Logistic Regression"]:
+   if classifier_selection in ["Logistic Regression"]:
         clf = LogisticRegression()
         clf.fit(X_train, y_train)
         st.title("Breast Cancer Diagnosis Simulator")
+        
+        # Create input_df using the collected input_data
         input_df = pd.DataFrame([input_data])
+        
+        # Scale the input_df using the input_scaler
         input_df = scaler.transform(input_df)
+        
         prob = clf.predict_proba(input_df)[0][1]
         st.write(f"### **The likelihood of the tumor being malignant is {prob*100:.2f}%.**")
         y_pred_lr = clf.predict(X_test)
