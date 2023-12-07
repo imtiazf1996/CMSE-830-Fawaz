@@ -209,7 +209,7 @@ if selected_tab == "Classifier":
         st.pyplot(plt)
     
     
-   if classifier_selection in ["Logistic Regression"]:
+    if classifier_selection in ["Logistic Regression"]:
         clf = LogisticRegression()
         clf.fit(X_train, y_train)
         st.title("Breast Cancer Diagnosis Simulator")
