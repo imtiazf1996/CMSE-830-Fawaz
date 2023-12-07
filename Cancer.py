@@ -203,7 +203,7 @@ if selected_tab == "Classifier":
     if 'slider_values' not in st.session_state:
         st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
     for feature in X.columns:
-        input_data[feature] = st.slider(f"Adjust {feature.replace('_mean', '')}",float(X[feature].min()),float(X[feature].max()),st.session_state['slider_values'][feature])
+        input_data[feature] = st.slider(f"Adjust {feature.replace('_mean', '').replace('_se', '').replace('_worst', '')}", float(X[feature].min()), float(X[feature].max()), st.session_state['slider_values'][feature])
         st.session_state['slider_values'][feature] = input_data[feature]
     
     #Confusion Matrix
