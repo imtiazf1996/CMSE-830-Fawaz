@@ -214,6 +214,8 @@ if selected_tab == "Classifier":
         clf.fit(X_train, y_train)
         st.title("Breast Cancer Diagnosis Simulator")
         input_scaler = StandardScaler()
+        st.write(f"Shape of input_df: {input_df.shape}")
+        st.write(f"Shape of X_train: {X_train.shape}")
         input_df = input_scaler.fit_transform(input_df)
         prob = clf.predict_proba(input_df)[0][1]
         st.write(f"### **The likelihood of the tumor being malignant is {prob*100:.2f}%.**")
