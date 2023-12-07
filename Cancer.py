@@ -17,7 +17,7 @@ from sklearn.decomposition import PCA
 from sklearn.linear_model import LinearRegression
 
 
-df1=pd.read_csv('data.csv')
+df=pd.read_csv('data.csv')
 
 ##TABS
 tabs = ["Home", "Classifier", "PCA", "Linear Regression", "Plots (EDA)"]
@@ -35,7 +35,7 @@ if selected_tab == "Home":
     st.markdown("***")
                 
     show_table = st.checkbox("Show Dataset Table")
-    df2 = df1.dropna(axis=1, how='any')
+    df2 = df.dropna(axis=1, how='any')
     
     Column=st.checkbox("Column of Data available in this Dataset")
     if Column:
@@ -174,8 +174,9 @@ if selected_tab == "Plots (EDA)":
 
 ##Classifier
 
-st.write("# *Predict Cell Type*")
+
 if selected_tab == "Classifier":
+    st.write("# *Predict Cell Type*")
     selected_group = st.radio('Choose a feature group to keep:', ['Worst Features', 'Mean Features', 'Standard Error Features', 'Keep All'])
     
     if selected_group == 'Worst Features':
