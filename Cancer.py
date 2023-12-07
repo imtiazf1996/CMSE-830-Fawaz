@@ -177,7 +177,7 @@ if selected_tab == "Plots (EDA)":
 
 if selected_tab == "Classifier":
     st.write("# *Predict Cell Type*")
-    selected_group = st.radio('Choose a feature group to keep:', ['Worst Features', 'Mean Features', 'Standard Error Features', 'Keep All'])
+    selected_group = st.radio('Choose a feature group to keep:', ['Worst Features', 'Mean Features', 'Standard Error Features'])
     
     if selected_group == 'Worst Features':
         df = df[['diagnosis'] + ['id'] + list(df.filter(like='worst'))]
@@ -185,8 +185,6 @@ if selected_tab == "Classifier":
         df = df[['diagnosis'] + ['id'] + list(df.filter(like='mean'))]
     elif selected_group == 'Standard Error Features':
         df = df[['diagnosis'] + ['id'] + list(df.filter(like='se'))]
-    else:
-        pass
     
     cols=df.columns
     red_df=df.iloc[:,0:32]
@@ -194,7 +192,7 @@ if selected_tab == "Classifier":
     
     classifier_selection = st.selectbox("Select a classifier type:", ["KNN", "Logistic Regression", "SVM", "Random Tree", "Gradient Boosting", "Naive Bayes"])
     
-    X = df.filter(like='mean')
+    X = df.iloc[:, 2:]
     y = df['diagnosis'].map({'M': 1, 'B': 0})
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     scaler = StandardScaler()
