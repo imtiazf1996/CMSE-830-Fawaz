@@ -204,15 +204,18 @@ if selected_tab == "Classifier":
     
     # Iterate over the columns (features) in X
     for feature in X.columns:
-        # Create a slider for adjusting the feature value
-        input_data[feature] = st.slider(
-            f"Adjust {feature.replace('_mean', '')}",
-            float(X[feature].min()),
-            float(X[feature].max()),
-            st.session_state['slider_values'][feature]
-        )
-        # Update the 'slider_values' dictionary with the adjusted value for future reference
-        st.session_state['slider_values'][feature] = input_data[feature]
+        # Check if the feature exists in 'slider_values' before accessing it
+        if feature in st.session_state['slider_values']:
+            # Create a slider for adjusting the feature value
+            input_data[feature] = st.slider(
+                f"Adjust {feature.replace('_mean', '')}",
+                float(X[feature].min()),
+                float(X[feature].max()),
+                st.session_state['slider_values'][feature]
+            )
+            # Update the 'slider_values' dictionary with the adjusted value for future reference
+            st.session_state['slider_values'][feature] = input_data[feature]
+
     #Confusion Matrix
     def plot_confusion_matrix(cm, classifier_name):
         plt.figure(figsize=(5,5))
