@@ -202,21 +202,20 @@ if selected_tab == "Classifier":
  
     # Define the tab options
     tabs = ['Mean Features', 'Standard Error Features', 'Worst Features']
-    
 
-    selected_tab = st.sidebar.radio('Choose a feature group to keep:', tabs)
-    if selected_tab == 'Worst Features':
-        X = load_worst_features()
-    elif selected_tab == 'Mean Features':
-        X = load_mean_features()
-    elif selected_tab == 'Standard Error Features':
-        X = load_se_features()
-    
     if 'slider_values' not in st.session_state:
-        st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
+        st.session_state['slider_values'] = {feature: 0.0 for feature in X.columns}
     
     for feature in X.columns:
-        slider_label = f'Adjust {feature.replace("_mean", "").replace("_se", "").replace("_worst", "")}'
+        slider_label = f"Adjust {feature.replace('_mean', '').replace('_se', '').replace('_worst', '')}"
+        feature_type = None
+        if '_mean' in feature:
+            feature_type = 'mean'
+        elif '_se' in feature:
+            feature_type = 'se'
+        elif '_worst' in feature:
+            feature_type = 'worst'
+    
         input_data[feature] = st.slider(slider_label, float(X[feature].min()), float(X[feature].max()), st.session_state['slider_values'][feature])
         st.session_state['slider_values'][feature] = input_data[feature]
 
