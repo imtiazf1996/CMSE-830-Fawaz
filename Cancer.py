@@ -172,13 +172,9 @@ if selected_tab == "Plots (EDA)":
             hiplot_html = hp.to_html()
             st.components.v1.html(hp.to_html(), height = 800, width = 1600, scrolling=True)
 
-##Classifier
-
-
+#Classifier
 if selected_tab == "Classifier":
-    st.write("# *Predict Cell Type*")
-
-    classifier_selection = st.selectbox("Select a classifier type:", ["KNN", "SVM", "Gradient Boosting", "Logistic Regression", "Random Tree", "Naive Bayes"])
+    classifier_selection = st.selectbox("Select a classifier type:", ["KNN", "Logistic Regression", "SVM", "Random Tree", "Gradient Boosting", "Naive Bayes"])
     X = df.filter(like='mean')
     y = df['diagnosis'].map({'M': 1, 'B': 0})
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -188,17 +184,9 @@ if selected_tab == "Classifier":
     input_data = {}
     if 'slider_values' not in st.session_state:
         st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
-
     for feature in X.columns:
-        if feature in st.session_state['slider_values']:
-            input_data[feature] = st.slider(
-                f"Adjust {feature.replace('_mean', '')}",
-                float(X[feature].min()),
-                float(X[feature].max()),
-                st.session_state['slider_values'][feature]
-            )
-            st.session_state['slider_values'][feature] = input_data[feature]
-
+        input_data[feature] = st.slider(f"Adjust {feature.replace('_mean', '')}",float(X[feature].min()),float(X[feature].max()),st.session_state['slider_values'][feature])
+        st.session_state['slider_values'][feature] = input_data[feature]
     #Confusion Matrix
     def plot_confusion_matrix(cm, classifier_name):
         plt.figure(figsize=(5,5))
@@ -207,28 +195,13 @@ if selected_tab == "Classifier":
         plt.xlabel('Predicted label')
         plt.title(f'Confusion Matrix for {classifier_name}', size=15)
         st.pyplot(plt)
-    
-    
     if classifier_selection in ["Logistic Regression"]:
         clf = LogisticRegression()
         clf.fit(X_train, y_train)
         st.title("Breast Cancer Diagnosis Simulator")
-        
-        # Debugging print statement
-        print("X.columns:", X.columns)
-        print("input_data:", input_data)
-        
-        input_array = np.array([input_data[feature] for feature in X.columns]).reshape(1, -1)
-        
-        # Debugging print statement
-        print("input_array shape:", input_array.shape)
-        
-        # Scale the input data using the scaler
-        input_array = scaler.transform(input_array)
-        
-        # Debugging print statement
-        print("Transformed input_array shape:", input_array.shape)
-        prob = clf.predict_proba(input_array)[0][1]
+        input_df = pd.DataFrame([input_data])
+        input_df = scaler.transform(input_df)
+        prob = clf.predict_proba(input_df)[0][1]
         st.write(f"### **The likelihood of the tumor being malignant is {prob*100:.2f}%.**")
         y_pred_lr = clf.predict(X_test)
         cm_lr = confusion_matrix(y_test, y_pred_lr)
@@ -237,7 +210,6 @@ if selected_tab == "Classifier":
         st.write(f"Accuracy (Logistic Regression): {accuracy_lr:.2f}")
         st.write(f"F1 Score (Logistic Regression): {f1_lr:.2f}")
         plot_confusion_matrix(cm_lr, "Logistic Regression")
-    
     elif classifier_selection in ["KNN"]:
         n_neighbors_val = st.slider("Choose neighbor value", min_value=2, max_value=50, value=25, step=1)
         knn = KNeighborsClassifier(n_neighbors=n_neighbors_val)  
@@ -253,7 +225,6 @@ if selected_tab == "Classifier":
         st.write(f"Accuracy (KNN): {accuracy_lr:.2f}")
         st.write(f"F1 Score (KNN): {f1_lr:.2f}")
         plot_confusion_matrix(cm_lr, "KNN")
-    
     elif classifier_selection in ["SVM"]:
         svm = SVC(probability=True)  
         svm.fit(X_train, y_train)
@@ -268,7 +239,6 @@ if selected_tab == "Classifier":
         st.write(f"Accuracy (SVM): {accuracy_lr:.2f}")
         st.write(f"F1 Score (SVM): {f1_lr:.2f}")
         plot_confusion_matrix(cm_lr, "SVM")
-    
     elif classifier_selection in ["Random Tree"]:
         rf_clf = RandomForestClassifier(n_estimators=100, random_state=42)  # Number of trees can be adjusted
         rf_clf.fit(X_train, y_train)
@@ -283,7 +253,6 @@ if selected_tab == "Classifier":
         st.write(f"Accuracy (Random Tree): {accuracy_lr:.2f}")
         st.write(f"F1 Score (Random Tree): {f1_lr:.2f}")
         plot_confusion_matrix(cm_lr, "Random Tree")
-    
     elif classifier_selection in ["Gradient Boosting"]:
         gb_clf = GradientBoostingClassifier(n_estimators=100, learning_rate=0.1, max_depth=3, random_state=42)
         gb_clf.fit(X_train, y_train)
@@ -298,7 +267,6 @@ if selected_tab == "Classifier":
         st.write(f"Accuracy (Gradient Boosting): {accuracy_lr:.2f}")
         st.write(f"F1 Score (Gradient Boosting): {f1_lr:.2f}")
         plot_confusion_matrix(cm_lr, "Gradient Boosting")
-    
     elif classifier_selection in ["Naive Bayes"]:
         nb_clf = GaussianNB()
         nb_clf.fit(X_train, y_train)
