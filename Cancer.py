@@ -177,37 +177,18 @@ if selected_tab == "Plots (EDA)":
 
 if selected_tab == "Classifier":
     st.write("# *Predict Cell Type*")
-    selected_group = 'Mean Features'
-
-    df = df[['diagnosis'] + ['id'] + list(df.filter(like='mean'))]
-    
-    cols = df.columns
-    red_df = df.iloc[:, 0:32]
-    red_cols = red_df.columns
-    
-    X = df.iloc[:, 2:]
-    y = df['diagnosis'].map({'M': 1, 'B': 0})
+    X = df1.filter(like='mean')
+    y = df1['diagnosis'].map({'M': 1, 'B': 0})
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     scaler = StandardScaler()
     X_train = scaler.fit_transform(X_train)
     X_test = scaler.transform(X_test)
     input_data = {}
-    
-    tabs = ['Mean Features']
-    
-    slider_values = st.session_state.get('slider_values', {})
-
-    if not slider_values:
-        slider_values = {feature: float(X[feature].mean()) for feature in X.columns}
-        st.session_state['slider_values'] = slider_values
-    
+    if 'slider_values' not in st.session_state:
+        st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
     for feature in X.columns:
-        slider_label = f"Adjust {feature.replace('_mean', '')}"
-        input_data[feature] = st.slider(slider_label, float(X[feature].min()), float(X[feature].max()), slider_values[feature])
-        slider_values[feature] = input_data[feature]
-    
-    # Update the session state with the modified slider values
-    st.session_state['slider_values'] = slider_values
+        input_data[feature] = st.slider(f"Adjust {feature.replace('_mean', '')}",float(X[feature].min()),float(X[feature].max()),st.session_state['slider_values'][feature])
+        st.session_state['slider_values'][feature] = input_data[feature]
     #Confusion Matrix
     def plot_confusion_matrix(cm, classifier_name):
         plt.figure(figsize=(5,5))
