@@ -201,10 +201,25 @@ if selected_tab == "Classifier":
     input_data = {}
     
     if 'slider_values' not in st.session_state:
-        st.session_state['slider_values'] = {feature: float(X[feature].mean()) if '_mean' in feature else float(X[feature].std()) if '_se' in feature else float(X[feature].max()) for feature in X.columns}
+        st.session_state['slider_values'] = {
+            'mean': {feature: float(X[feature].mean()) for feature in X.columns if '_mean' in feature},
+            'se': {feature: float(X[feature].std()) for feature in X.columns if '_se' in feature},
+            'worst': {feature: float(X[feature].max()) for feature in X.columns if '_worst' in feature}
+        }
+
     for feature in X.columns:
-        input_data[feature] = st.slider(f"Adjust {feature.replace('_mean', '').replace('_se', '').replace('_worst', '')}", float(X[feature].min()), float(X[feature].max()), st.session_state['slider_values'][feature])
-        st.session_state['slider_values'][feature] = input_data[feature]
+        if '_mean' in feature:
+            slider_type = 'mean'
+        elif '_se' in feature:
+            slider_type = 'se'
+        elif '_worst' in feature:
+            slider_type = 'worst'
+        else:
+            slider_type = 'default'  # Set a default type if not found
+
+        slider_label = f"Adjust {feature.replace('_mean', '').replace('_se', '').replace('_worst', '')}"
+        input_data[feature] = st.slider(slider_label, float(X[feature].min()), float(X[feature].max()), st.session_state['slider_values'][slider_type][feature])
+        st.session_state['slider_values'][slider_type][feature] = input_data[feature]
     
     #Confusion Matrix
     def plot_confusion_matrix(cm, classifier_name):
