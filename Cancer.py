@@ -177,8 +177,8 @@ if selected_tab == "Plots (EDA)":
 
 if selected_tab == "Classifier":
     st.write("# *Predict Cell Type*")
-    X = df1.filter(like='mean')
-    y = df1['diagnosis'].map({'M': 1, 'B': 0})
+    X = df.filter(like='mean')
+    y = df['diagnosis'].map({'M': 1, 'B': 0})
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     scaler = StandardScaler()
     X_train = scaler.fit_transform(X_train)
