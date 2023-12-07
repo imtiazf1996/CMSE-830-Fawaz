@@ -22,7 +22,7 @@ df1=pd.read_csv('data.csv')
 ##TABS
 tabs = ["Home", "Classifier", "PCA", "Linear Regression", "Plots (EDA)"]
 
-selected_tab = st.radio(tabs, index=0)
+selected_tab = st.radio("Sections",tabs, index=0)
 
 ##General Info
 
