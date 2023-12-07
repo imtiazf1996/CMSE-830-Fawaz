@@ -212,6 +212,18 @@ if selected_tab == "Classifier":
         st.write(f"F1 Score (Logistic Regression): {f1_lr:.2f}")
         plot_confusion_matrix(cm_lr, "Logistic Regression")
     elif classifier_selection in ["KNN"]:
+        X = df.filter(like='mean')
+        y = df['diagnosis'].map({'M': 1, 'B': 0})
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        scaler = StandardScaler()
+        X_train = scaler.fit_transform(X_train)
+        X_test = scaler.transform(X_test)
+        input_data = {}
+        if 'slider_values' not in st.session_state:
+            st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
+        for feature in X.columns:
+            input_data[feature] = st.slider(f"Adjust {feature.replace('_mean', '')}",float(X[feature].min()),float(X[feature].max()),st.session_state['slider_values'][feature])
+            st.session_state['slider_values'][feature] = input_data[feature]
         n_neighbors_val = st.slider("Choose neighbor value", min_value=2, max_value=50, value=25, step=1)
         knn = KNeighborsClassifier(n_neighbors=n_neighbors_val)  
         knn.fit(X_train, y_train)
@@ -227,6 +239,18 @@ if selected_tab == "Classifier":
         st.write(f"F1 Score (KNN): {f1_lr:.2f}")
         plot_confusion_matrix(cm_lr, "KNN")
     elif classifier_selection in ["SVM"]:
+        X = df.filter(like='mean')
+        y = df['diagnosis'].map({'M': 1, 'B': 0})
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        scaler = StandardScaler()
+        X_train = scaler.fit_transform(X_train)
+        X_test = scaler.transform(X_test)
+        input_data = {}
+        if 'slider_values' not in st.session_state:
+            st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
+        for feature in X.columns:
+            input_data[feature] = st.slider(f"Adjust {feature.replace('_mean', '')}",float(X[feature].min()),float(X[feature].max()),st.session_state['slider_values'][feature])
+            st.session_state['slider_values'][feature] = input_data[feature]
         svm = SVC(probability=True)  
         svm.fit(X_train, y_train)
         input_df = pd.DataFrame([input_data])
@@ -241,6 +265,18 @@ if selected_tab == "Classifier":
         st.write(f"F1 Score (SVM): {f1_lr:.2f}")
         plot_confusion_matrix(cm_lr, "SVM")
     elif classifier_selection in ["Random Tree"]:
+        X = df.filter(like='mean')
+        y = df['diagnosis'].map({'M': 1, 'B': 0})
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        scaler = StandardScaler()
+        X_train = scaler.fit_transform(X_train)
+        X_test = scaler.transform(X_test)
+        input_data = {}
+        if 'slider_values' not in st.session_state:
+            st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
+        for feature in X.columns:
+            input_data[feature] = st.slider(f"Adjust {feature.replace('_mean', '')}",float(X[feature].min()),float(X[feature].max()),st.session_state['slider_values'][feature])
+            st.session_state['slider_values'][feature] = input_data[feature]
         rf_clf = RandomForestClassifier(n_estimators=100, random_state=42)  # Number of trees can be adjusted
         rf_clf.fit(X_train, y_train)
         input_df = pd.DataFrame([input_data])
@@ -255,6 +291,18 @@ if selected_tab == "Classifier":
         st.write(f"F1 Score (Random Tree): {f1_lr:.2f}")
         plot_confusion_matrix(cm_lr, "Random Tree")
     elif classifier_selection in ["Gradient Boosting"]:
+        X = df.filter(like='mean')
+        y = df['diagnosis'].map({'M': 1, 'B': 0})
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        scaler = StandardScaler()
+        X_train = scaler.fit_transform(X_train)
+        X_test = scaler.transform(X_test)
+        input_data = {}
+        if 'slider_values' not in st.session_state:
+            st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
+        for feature in X.columns:
+            input_data[feature] = st.slider(f"Adjust {feature.replace('_mean', '')}",float(X[feature].min()),float(X[feature].max()),st.session_state['slider_values'][feature])
+            st.session_state['slider_values'][feature] = input_data[feature]
         gb_clf = GradientBoostingClassifier(n_estimators=100, learning_rate=0.1, max_depth=3, random_state=42)
         gb_clf.fit(X_train, y_train)
         input_df = pd.DataFrame([input_data])
@@ -269,6 +317,18 @@ if selected_tab == "Classifier":
         st.write(f"F1 Score (Gradient Boosting): {f1_lr:.2f}")
         plot_confusion_matrix(cm_lr, "Gradient Boosting")
     elif classifier_selection in ["Naive Bayes"]:
+        X = df.filter(like='mean')
+        y = df['diagnosis'].map({'M': 1, 'B': 0})
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        scaler = StandardScaler()
+        X_train = scaler.fit_transform(X_train)
+        X_test = scaler.transform(X_test)
+        input_data = {}
+        if 'slider_values' not in st.session_state:
+            st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
+        for feature in X.columns:
+            input_data[feature] = st.slider(f"Adjust {feature.replace('_mean', '')}",float(X[feature].min()),float(X[feature].max()),st.session_state['slider_values'][feature])
+            st.session_state['slider_values'][feature] = input_data[feature]
         nb_clf = GaussianNB()
         nb_clf.fit(X_train, y_train)
         input_df = pd.DataFrame([input_data])
