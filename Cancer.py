@@ -194,8 +194,8 @@ if selected_tab == "Classifier":
     
     classifier_selection = st.selectbox("Select a classifier type:", ["KNN", "Logistic Regression", "SVM", "Random Tree", "Gradient Boosting", "Naive Bayes"])
     
-    X = df1.filter(like='mean')
-    y = df1['diagnosis'].map({'M': 1, 'B': 0})
+    X = df.filter(like='mean')
+    y = df['diagnosis'].map({'M': 1, 'B': 0})
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     scaler = StandardScaler()
     X_train = scaler.fit_transform(X_train)
@@ -375,8 +375,8 @@ if selected_tab == "Linear Regression":
     
     if st.button('Run Regression without Train-Test Split'):
         plt.figure()
-        X = df1[[independent_var]]
-        y = df1[dependent_var]
+        X = df[[independent_var]]
+        y = df[dependent_var]
         model = LinearRegression().fit(X, y)
         
         st.write(f'Coefficient: {model.coef_[0]}')
@@ -394,8 +394,8 @@ if selected_tab == "Linear Regression":
     # Perform regression with train-test split
     if st.button('Run Regression with Train-Test Split'):
         plt.figure()
-        X = df1[[independent_var]]
-        y = df1[dependent_var]
+        X = df[[independent_var]]
+        y = df[dependent_var]
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
         model = LinearRegression().fit(X_train, y_train)
         st.write(f'Test R-squared: {model.score(X_test, y_test)}')
