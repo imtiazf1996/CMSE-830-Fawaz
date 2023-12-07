@@ -175,18 +175,7 @@ if selected_tab == "Plots (EDA)":
 #Classifier
 if selected_tab == "Classifier":
     classifier_selection = st.selectbox("Select a classifier type:", ["KNN", "Logistic Regression", "SVM", "Random Tree", "Gradient Boosting", "Naive Bayes"])
-    X = df.filter(like='mean')
-    y = df['diagnosis'].map({'M': 1, 'B': 0})
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    scaler = StandardScaler()
-    X_train = scaler.fit_transform(X_train)
-    X_test = scaler.transform(X_test)
-    input_data = {}
-    if 'slider_values' not in st.session_state:
-        st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
-    for feature in X.columns:
-        input_data[feature] = st.slider(f"Adjust {feature.replace('_mean', '')}",float(X[feature].min()),float(X[feature].max()),st.session_state['slider_values'][feature])
-        st.session_state['slider_values'][feature] = input_data[feature]
+    
     #Confusion Matrix
     def plot_confusion_matrix(cm, classifier_name):
         plt.figure(figsize=(5,5))
@@ -196,6 +185,18 @@ if selected_tab == "Classifier":
         plt.title(f'Confusion Matrix for {classifier_name}', size=15)
         st.pyplot(plt)
     if classifier_selection in ["Logistic Regression"]:
+        X = df.filter(like='mean')
+        y = df['diagnosis'].map({'M': 1, 'B': 0})
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        scaler = StandardScaler()
+        X_train = scaler.fit_transform(X_train)
+        X_test = scaler.transform(X_test)
+        input_data = {}
+        if 'slider_values' not in st.session_state:
+            st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
+        for feature in X.columns:
+            input_data[feature] = st.slider(f"Adjust {feature.replace('_mean', '')}",float(X[feature].min()),float(X[feature].max()),st.session_state['slider_values'][feature])
+            st.session_state['slider_values'][feature] = input_data[feature]
         clf = LogisticRegression()
         clf.fit(X_train, y_train)
         st.title("Breast Cancer Diagnosis Simulator")
