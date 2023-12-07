@@ -214,11 +214,20 @@ if selected_tab == "Classifier":
         clf.fit(X_train, y_train)
         st.title("Breast Cancer Diagnosis Simulator")
         
+        # Debugging print statement
+        print("X.columns:", X.columns)
+        print("input_data:", input_data)
+        
         input_array = np.array([input_data[feature] for feature in X.columns]).reshape(1, -1)
+        
+        # Debugging print statement
+        print("input_array shape:", input_array.shape)
         
         # Scale the input data using the scaler
         input_array = scaler.transform(input_array)
         
+        # Debugging print statement
+        print("Transformed input_array shape:", input_array.shape)
         prob = clf.predict_proba(input_array)[0][1]
         st.write(f"### **The likelihood of the tumor being malignant is {prob*100:.2f}%.**")
         y_pred_lr = clf.predict(X_test)
