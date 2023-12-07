@@ -195,13 +195,19 @@ if selected_tab == "Classifier":
     
     tabs = ['Mean Features']
     
-    if 'slider_values' not in st.session_state:
-        st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
+    slider_values = st.session_state.get('slider_values', {})
+
+    if not slider_values:
+        slider_values = {feature: float(X[feature].mean()) for feature in X.columns}
+        st.session_state['slider_values'] = slider_values
     
     for feature in X.columns:
         slider_label = f"Adjust {feature.replace('_mean', '')}"
-        input_data[feature] = st.slider(slider_label, float(X[feature].min()), float(X[feature].max()), st.session_state['slider_values'][feature])
-        st.session_state['slider_values'][feature] = input_data[feature]
+        input_data[feature] = st.slider(slider_label, float(X[feature].min()), float(X[feature].max()), slider_values[feature])
+        slider_values[feature] = input_data[feature]
+    
+    # Update the session state with the modified slider values
+    st.session_state['slider_values'] = slider_values
     #Confusion Matrix
     def plot_confusion_matrix(cm, classifier_name):
         plt.figure(figsize=(5,5))
