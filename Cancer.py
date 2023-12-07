@@ -213,8 +213,8 @@ if selected_tab == "Classifier":
         clf = LogisticRegression()
         clf.fit(X_train, y_train)
         st.title("Breast Cancer Diagnosis Simulator")
-        input_scaler = StandardScaler()
-        input_df = input_scaler.fit_transform(input_df)
+        input_df = pd.DataFrame([input_data])
+        input_df = scaler.transform(input_df)
         prob = clf.predict_proba(input_df)[0][1]
         st.write(f"### **The likelihood of the tumor being malignant is {prob*100:.2f}%.**")
         y_pred_lr = clf.predict(X_test)
