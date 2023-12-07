@@ -205,6 +205,14 @@ if selected_tab == "Classifier":
 
     for feature in X.columns:
         slider_label = f"Adjust {feature.replace('_mean', '').replace('_se', '').replace('_worst', '')}"
+        feature_type = None
+        if '_mean' in feature:
+            feature_type = 'mean'
+        elif '_se' in feature:
+            feature_type = 'se'
+        elif '_worst' in feature:
+            feature_type = 'worst'
+        
         input_data[feature] = st.slider(slider_label, float(X[feature].min()), float(X[feature].max()), st.session_state['slider_values'][feature])
         st.session_state['slider_values'][feature] = input_data[feature]
 
