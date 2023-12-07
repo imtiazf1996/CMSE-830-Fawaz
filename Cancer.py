@@ -214,7 +214,7 @@ if selected_tab == "Classifier":
         clf.fit(X_train, y_train)
         st.title("Breast Cancer Diagnosis Simulator")
         
-        input_array = np.array(list(input_data.values())).reshape(1, -1)
+        input_array = np.array([input_data[feature] for feature in X.columns]).reshape(1, -1)
         
         # Scale the input data using the scaler
         input_array = scaler.transform(input_array)
