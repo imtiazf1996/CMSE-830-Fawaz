@@ -178,16 +178,40 @@ if selected_tab == "Plots (EDA)":
 if selected_tab == "Classifier":
     st.write("# *Predict Cell Type*")
     X = df.filter(like='mean')
+
+    # Map the 'M' (Malignant) and 'B' (Benign) labels to 1 and 0, respectively
     y = df['diagnosis'].map({'M': 1, 'B': 0})
+    
+    # Split the data into training and testing sets (80% training, 20% testing)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    
+    # Initialize a StandardScaler for feature standardization
     scaler = StandardScaler()
+    
+    # Standardize the training data
     X_train = scaler.fit_transform(X_train)
+    
+    # Standardize the test data using the same scaler
     X_test = scaler.transform(X_test)
+    
+    # Initialize an empty dictionary to store adjusted feature values
     input_data = {}
+    
+    # Check if 'slider_values' is not present in the Streamlit session state
     if 'slider_values' not in st.session_state:
+        # Initialize 'slider_values' with the mean values of each feature
         st.session_state['slider_values'] = {feature: float(X[feature].mean()) for feature in X.columns}
+    
+    # Iterate over the columns (features) in X
     for feature in X.columns:
-        input_data[feature] = st.slider(f"Adjust {feature.replace('_mean', '')}",float(X[feature].min()),float(X[feature].max()),st.session_state['slider_values'][feature])
+        # Create a slider for adjusting the feature value
+        input_data[feature] = st.slider(
+            f"Adjust {feature.replace('_mean', '')}",
+            float(X[feature].min()),
+            float(X[feature].max()),
+            st.session_state['slider_values'][feature]
+        )
+        # Update the 'slider_values' dictionary with the adjusted value for future reference
         st.session_state['slider_values'][feature] = input_data[feature]
     #Confusion Matrix
     def plot_confusion_matrix(cm, classifier_name):
