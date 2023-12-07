@@ -314,18 +314,18 @@ if selected_tab == "PCA":
     st.markdown("## :blue[Principal Component Analysis (PCA)]")
     selected_group = st.radio('Choose a feature group to keep:', ['Worst Features', 'Mean Features', 'Standard Error Features', 'Keep All'])
         
-        if selected_group == 'Worst Features':
-            df = df[['diagnosis'] + ['id'] + list(df.filter(like='worst'))]
-        elif selected_group == 'Mean Features':
-            df = df[['diagnosis'] + ['id'] + list(df.filter(like='mean'))]
-        elif selected_group == 'Standard Error Features':
-            df = df[['diagnosis'] + ['id'] + list(df.filter(like='se'))]
-        else:
-            pass
-        
-        cols=df.columns
-        red_df=df.iloc[:,0:32]
-        red_cols=red_df.columns
+    if selected_group == 'Worst Features':
+        df = df[['diagnosis'] + ['id'] + list(df.filter(like='worst'))]
+    elif selected_group == 'Mean Features':
+        df = df[['diagnosis'] + ['id'] + list(df.filter(like='mean'))]
+    elif selected_group == 'Standard Error Features':
+        df = df[['diagnosis'] + ['id'] + list(df.filter(like='se'))]
+    else:
+        pass
+    
+    cols=df.columns
+    red_df=df.iloc[:,0:32]
+    red_cols=red_df.columns
     
     selected_features = st.multiselect('Select variables:', cols)
     
@@ -356,18 +356,18 @@ if selected_tab == "Linear Regression":
     st.write("## Regression Analysis")
     selected_group = st.radio('Choose a feature group to keep:', ['Worst Features', 'Mean Features', 'Standard Error Features', 'Keep All'])
             
-            if selected_group == 'Worst Features':
-                df = df[['diagnosis'] + ['id'] + list(df.filter(like='worst'))]
-            elif selected_group == 'Mean Features':
-                df = df[['diagnosis'] + ['id'] + list(df.filter(like='mean'))]
-            elif selected_group == 'Standard Error Features':
-                df = df[['diagnosis'] + ['id'] + list(df.filter(like='se'))]
-            else:
-                pass
-            
-            cols=df.columns
-            red_df=df.iloc[:,0:32]
-            red_cols=red_df.columns
+    if selected_group == 'Worst Features':
+        df = df[['diagnosis'] + ['id'] + list(df.filter(like='worst'))]
+    elif selected_group == 'Mean Features':
+        df = df[['diagnosis'] + ['id'] + list(df.filter(like='mean'))]
+    elif selected_group == 'Standard Error Features':
+        df = df[['diagnosis'] + ['id'] + list(df.filter(like='se'))]
+    else:
+        pass
+    
+    cols=df.columns
+    red_df=df.iloc[:,0:32]
+    red_cols=red_df.columns
     # User selects independent and dependent variables
     independent_var = st.selectbox('Select the independent variable', cols)
     dependent_var = st.selectbox('Select the dependent variable', cols)
