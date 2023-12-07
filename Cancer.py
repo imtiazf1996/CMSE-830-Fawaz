@@ -177,6 +177,8 @@ if selected_tab == "Plots (EDA)":
 
 if selected_tab == "Classifier":
     st.write("# *Predict Cell Type*")
+
+    classifier_selection= st.selectbox("Select a classifier type:", ["KNN", "SVM", "Gradient Boosting", "Logistic Regression", "Random Tree", "Naive Bayes"])
     X = df.filter(like='mean')
 
     # Map the 'M' (Malignant) and 'B' (Benign) labels to 1 and 0, respectively
