@@ -426,7 +426,9 @@ if selected_tab == "PCA":
         st.plotly_chart(fig)
     
         explained_variance = pca.explained_variance_ratio_
-        st.bar_chart(explained_variance)
+        explained_variance_labels = ['PC1', 'PC2', 'PC3']  
+        explained_variance_df = pd.DataFrame({'Principal Component': explained_variance_labels, 'Explained Variance': explained_variance})
+        st.bar_chart(explained_variance_df, x='Principal Component', y='Explained Variance')
 
 #Linear Regression without train-test split
 if selected_tab == "Linear Regression":
