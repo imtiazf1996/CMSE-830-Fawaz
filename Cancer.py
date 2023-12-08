@@ -20,7 +20,7 @@ from sklearn.linear_model import LinearRegression
 df=pd.read_csv('data.csv')
 
 ##TABS
-tabs = ["Home", "Classifier", "PCA", "Linear Regression", "Plots (EDA)"]
+tabs = ["Home", "Classifier", "PCA", "Linear Regression", "Plots (EDA)", "About Me"]
 
 selected_tab = st.radio("Sections",tabs, index=0)
 
@@ -485,3 +485,15 @@ if selected_tab == "Linear Regression":
         plt.ylabel(dependent_var)
         plt.title('Regression Analysis with Train-Test Split')
         st.pyplot(plt)
+
+if selected_tab == "About Me":
+    st.write("## About Me")
+    st.write("I am a Ph.D. student at Michigan State University, specializing in Mechanical Engineering. My passion for cars drives me to explore innovative solutions to complex problems in the field of Internal Combustion Engine.")
+    st.write("When I'm not in the lab or working on research, you can find me pursuing my interests and hobbies:")
+    st.write("- **Cars:** Related to my research but I always like to explore different types of cars and their engines in my free time. F1 racing is something that really attracts me.")
+    st.write("- **Soccer:** I'm a dedicated soccer enthusiast, both as a player and a fan. The beautiful game never ceases to amaze me with its tactics and excitement.")
+    st.write("- **Cycling:** I enjoy the freedom of cycling and often take scenic routes to unwind and stay active.")
+    st.write("- **Movies:** I have a deep appreciation for films of all genres, from thought-provoking classics to the latest blockbusters. Movie nights are a must for me!")
+    
+    st.write("Feel free to reach out if you have any questions or want to discuss anything related to mechanical engineering, sports, or cinema.")
+
