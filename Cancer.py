@@ -123,6 +123,7 @@ if selected_tab == "Home":
 
 ##Plots
 if selected_tab == "Plots (EDA)":
+    st.write ("##Visualization and Plots")
     selected_group = st.radio('Choose a feature group to keep:', ['Worst Features', 'Mean Features', 'Standard Error Features', 'Keep All'])
     
     if selected_group == 'Worst Features':
