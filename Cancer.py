@@ -35,7 +35,7 @@ if selected_tab == "Home":
     
     # Purpose of the Dataset
     st.write("### Why This Dataset?")
-    st.write("Breast cancer is a significant health concern worldwide, and early diagnosis is critical for effective treatment. Our dataset contains a wealth of information collected from breast cancer patients, providing a powerful tool for analysis and research. Here's why this dataset is invaluable:")
+    st.write("Breast cancer is a significant health concern worldwide, and early diagnosis is critical for effective treatment. This dataset contains a wealth of information collected from breast cancer patients, providing a powerful tool for analysis and research. Here's why this dataset is invaluable:")
     
     st.write("1. **Research:** Researchers can explore this dataset to gain a deeper understanding of breast cancer's characteristics, contributing to advancements in diagnosis and treatment.")
     st.write("2. **Early Detection:** Medical professionals can use this dataset to identify patterns and factors associated with malignancy, aiding in early cancer detection.")
@@ -59,14 +59,14 @@ if selected_tab == "Home":
     
     # Aim of the App
     st.write("### Aim of the App")
-    st.write("Our app has two primary aims:")
+    st.write("This app has two primary aims:")
     
     st.write("1. **Facilitate Diagnosis:** We aim to assist medical professionals and researchers in diagnosing breast cancer accurately and early by providing easy access to this valuable dataset and predictive tools.")
     st.write("2. **Educational:** We want to promote education and awareness about breast cancer by making this dataset and its analysis accessible to students, educators, and anyone interested in learning about data analysis and cancer research.")
     
     # Get Started
     st.write("### Get Started")
-    st.write("Ready to get started? Click on the options in the sidebar to explore the dataset, visualize the data, customize plots, and make predictions. If you have any questions or need assistance, feel free to reach out.")
+    st.write("Ready to get started? Click on the options below and also at the top of this page to explore the dataset, visualize the data, customize plots, and make predictions. If you have any questions or need assistance, feel free to reach out.")
     
     st.markdown("***")
                 
