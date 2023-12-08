@@ -488,7 +488,7 @@ if selected_tab == "Linear Regression":
 
 if selected_tab == "About Me":
     st.write("## About Me")
-    st.write("I am a Ph.D. student at Michigan State University, specializing in Mechanical Engineering. My passion for cars drives me to explore innovative solutions to complex problems in the field of Internal Combustion Engine.")
+    st.write("Hello! My name is Fawaz Imtiaz. I am a Ph.D. student at Michigan State University, specializing in Mechanical Engineering. My passion for cars drives me to explore innovative solutions to complex problems in the field of Internal Combustion Engine.")
     st.write("When I'm not in the lab or working on research, you can find me pursuing my interests and hobbies:")
     st.write("- **Cars:** Related to my research but I always like to explore different types of cars and their engines in my free time. F1 racing is something that really attracts me.")
     st.write("- **Soccer:** I'm a dedicated soccer enthusiast, both as a player and a fan. The beautiful game never ceases to amaze me with its tactics and excitement.")
