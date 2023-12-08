@@ -31,44 +31,44 @@ st.write("# **_Breast Cancer Wisconsin Dataset_**")
 if selected_tab == "Home":
 
     st.write("Welcome to the Breast Cancer Diagnosis App!")
-st.write("In collaboration with the University of Wisconsin Hospitals in Madison, we present a comprehensive dataset that offers valuable insights into breast cancer. This dataset is a vital resource for researchers, medical professionals, and anyone interested in understanding breast cancer better.")
-
-# Purpose of the Dataset
-st.write("### Why This Dataset?")
-st.write("Breast cancer is a significant health concern worldwide, and early diagnosis is critical for effective treatment. Our dataset contains a wealth of information collected from breast cancer patients, providing a powerful tool for analysis and research. Here's why this dataset is invaluable:")
-
-st.write("1. **Research:** Researchers can explore this dataset to gain a deeper understanding of breast cancer's characteristics, contributing to advancements in diagnosis and treatment.")
-st.write("2. **Early Detection:** Medical professionals can use this dataset to identify patterns and factors associated with malignancy, aiding in early cancer detection.")
-st.write("3. **Educational:** Students and educators can utilize this dataset for educational purposes, learning about data analysis and cancer research.")
-
-# Using the App
-st.write("### How to Use This App?")
-st.write("Our app simplifies the process of working with this dataset. Here's what you can do with it:")
-
-st.write("1. **View and Modify Data:** Explore the dataset, select specific feature groups, and make modifications as needed.")
-st.write("2. **Interactive Visualizations:** Dive deep into data patterns using interactive visualizations like histograms, scatter plots, and heatmaps.")
-st.write("3. **Customize Plots:** Tailor your visualizations by choosing variables to generate insightful charts.")
-st.write("4. **Predictions:** Utilize the simulator to make parameter changes and instantly see the likelihood of a cell being malignant.")
-
-# Definitions
-st.write("### What is Benign and Malignant?")
-st.write("In the context of breast cancer diagnosis, it's important to understand the terms:")
-
-st.write("1. **Benign:** A benign tumor is non-cancerous. Cells in a benign tumor do not spread to other parts of the body. They are usually not life-threatening.")
-st.write("2. **Malignant:** A malignant tumor is cancerous. Malignant cells have the potential to invade nearby tissues and spread to other parts of the body, which can be life-threatening if not treated.")
-
-# Aim of the App
-st.write("### Aim of the App")
-st.write("Our app has two primary aims:")
-
-st.write("1. **Facilitate Diagnosis:** We aim to assist medical professionals and researchers in diagnosing breast cancer accurately and early by providing easy access to this valuable dataset and predictive tools.")
-st.write("2. **Educational:** We want to promote education and awareness about breast cancer by making this dataset and its analysis accessible to students, educators, and anyone interested in learning about data analysis and cancer research.")
-
-# Get Started
-st.write("### Get Started")
-st.write("Ready to get started? Click on the options in the sidebar to explore the dataset, visualize the data, customize plots, and make predictions. If you have any questions or need assistance, feel free to reach out.")
-
-st.markdown("***")
+    st.write("In collaboration with the University of Wisconsin Hospitals in Madison, we present a comprehensive dataset that offers valuable insights into breast cancer. This dataset is a vital resource for researchers, medical professionals, and anyone interested in understanding breast cancer better.")
+    
+    # Purpose of the Dataset
+    st.write("### Why This Dataset?")
+    st.write("Breast cancer is a significant health concern worldwide, and early diagnosis is critical for effective treatment. Our dataset contains a wealth of information collected from breast cancer patients, providing a powerful tool for analysis and research. Here's why this dataset is invaluable:")
+    
+    st.write("1. **Research:** Researchers can explore this dataset to gain a deeper understanding of breast cancer's characteristics, contributing to advancements in diagnosis and treatment.")
+    st.write("2. **Early Detection:** Medical professionals can use this dataset to identify patterns and factors associated with malignancy, aiding in early cancer detection.")
+    st.write("3. **Educational:** Students and educators can utilize this dataset for educational purposes, learning about data analysis and cancer research.")
+    
+    # Using the App
+    st.write("### How to Use This App?")
+    st.write("Our app simplifies the process of working with this dataset. Here's what you can do with it:")
+    
+    st.write("1. **View and Modify Data:** Explore the dataset, select specific feature groups, and make modifications as needed.")
+    st.write("2. **Interactive Visualizations:** Dive deep into data patterns using interactive visualizations like histograms, scatter plots, and heatmaps.")
+    st.write("3. **Customize Plots:** Tailor your visualizations by choosing variables to generate insightful charts.")
+    st.write("4. **Predictions:** Utilize the simulator to make parameter changes and instantly see the likelihood of a cell being malignant.")
+    
+    # Definitions
+    st.write("### What is Benign and Malignant?")
+    st.write("In the context of breast cancer diagnosis, it's important to understand the terms:")
+    
+    st.write("1. **Benign:** A benign tumor is non-cancerous. Cells in a benign tumor do not spread to other parts of the body. They are usually not life-threatening.")
+    st.write("2. **Malignant:** A malignant tumor is cancerous. Malignant cells have the potential to invade nearby tissues and spread to other parts of the body, which can be life-threatening if not treated.")
+    
+    # Aim of the App
+    st.write("### Aim of the App")
+    st.write("Our app has two primary aims:")
+    
+    st.write("1. **Facilitate Diagnosis:** We aim to assist medical professionals and researchers in diagnosing breast cancer accurately and early by providing easy access to this valuable dataset and predictive tools.")
+    st.write("2. **Educational:** We want to promote education and awareness about breast cancer by making this dataset and its analysis accessible to students, educators, and anyone interested in learning about data analysis and cancer research.")
+    
+    # Get Started
+    st.write("### Get Started")
+    st.write("Ready to get started? Click on the options in the sidebar to explore the dataset, visualize the data, customize plots, and make predictions. If you have any questions or need assistance, feel free to reach out.")
+    
+    st.markdown("***")
                 
     show_table = st.checkbox("Show Dataset Table")
     df2 = df.dropna(axis=1, how='any')
