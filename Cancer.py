@@ -216,6 +216,7 @@ if selected_tab == "Plots (EDA)":
 
 #Classifier
 if selected_tab == "Classifier":
+    st.write("## Predictor")
     classifier_selection = st.selectbox("Select a classifier type:", ["KNN", "Logistic Regression", "SVM", "Random Tree", "Gradient Boosting", "Naive Bayes"])
     
     #Confusion Matrix
