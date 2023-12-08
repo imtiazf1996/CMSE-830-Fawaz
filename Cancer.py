@@ -42,13 +42,18 @@ if selected_tab == "Home":
     st.write("3. **Educational:** Students and educators can utilize this dataset for educational purposes, learning about data analysis and cancer research.")
     
     # Using the App
-    st.write("### How to Use This App?")
+    st.write("## How to Use This App?")
     st.write("Our app simplifies the process of working with this dataset. Here's what you can do with it:")
-    
+    st.write("### Visualization and Plots")
     st.write("1. **View and Modify Data:** Explore the dataset, select specific feature groups, and make modifications as needed.")
-    st.write("2. **Interactive Visualizations:** Dive deep into data patterns using interactive visualizations like histograms, scatter plots, and heatmaps.")
-    st.write("3. **Customize Plots:** Tailor your visualizations by choosing variables to generate insightful charts.")
-    st.write("4. **Predictions:** Utilize the simulator to make parameter changes and instantly see the likelihood of a cell being malignant.")
+    st.write("2. **Interactive Visualizations:** Dive deep into data patterns using interactive visualizations like histograms, scatter plots, hiplots, and many more.")
+    st.write("3. **Customize Plots:** Tailor your visualizations by choosing variables to generate insightful charts. Choose specific variables from the dataset to create customized visualizations. Select independent and dependent variables to analyze relationships effectively.")
+    st.write("### Predictions")
+    st.write("Empower your decision-making with predictive insights. This app offers powerful prediction capabilities, including:")
+    st.write("1. **Classifier Selection:** Choose from a range of classifiers, including Decision Trees, Random Forest, Support Vector Machine (SVM), and more. Select the one that best suits your prediction task.")
+    st.write("2. **Principal Component Analysis (PCA):** Apply PCA to reduce dimensionality and visualize data in a transformed space. Understand feature importance and its impact on predictions.")
+    st.write("3. **Test and Train Split:** Evaluate the performance of your chosen classifier with test and train data splits. Assess accuracy, precision, recall, and other metrics to make informed decisions.")
+    st.write("4. **Parameter Tuning:** Fine-tune classifier parameters to optimize predictive accuracy. The simulator instantly shows how parameter changes affect the likelihood of a cell being malignant.")
     
     # Definitions
     st.write("### What is Benign and Malignant?")
